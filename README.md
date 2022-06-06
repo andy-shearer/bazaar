@@ -1,4 +1,4 @@
-#Trustless Bazaar
+# Trustless Bazaar
 
 ## Components
 * Front-end
