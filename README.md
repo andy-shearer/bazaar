@@ -17,3 +17,13 @@
     * Label accounts operating across many areas (spoofed location)
   * Cross-platform interaction
     * How can those using cash accounts interact seamlessly with crypto accounts?
+
+## Modules
+
+* Borring & Lending “Borrow Bazaar”
+* Trading Post
+* Small scale services, eg:
+  * Use of a printer
+  * Sewing
+  * Handyman bits such as painting
+  * Computer support
