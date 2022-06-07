@@ -17,7 +17,7 @@ contract Lends is Ownable, Pausable {
         bool borrowerHasFunded;
         bool lenderApproval;
         bool started;
-        uint256 borrowDur; // stored in days
+        uint256 borrowDur; // stored in hours
         uint256 borrowFee;
         uint256 collateral;
         uint256 endDate;
@@ -102,6 +102,21 @@ contract Lends is Ownable, Pausable {
         totalStaked += lend.collateral;
     }
 
+    function claimFee(uint256 _lendId, uint256 _claimVal)
+        public
+        view
+        onlyWhenNotPaused
+        lendAgreementExists(_lendId)
+    {
+        LendAgreement storage lend = lends[_lendId];
+        require(lend.lender == msg.sender, "Only the lender can claim the fee");
+        require(lend.remainingFee > 0, "Entire fee has been claimed");
+        require(_claimVal <= getFeeClaimable(_lendId), "Claim value is too high");
+
+        lend.remainingFee -= _claimVal;
+        payable(msg.sender).transfer({value: _claimVal});
+    }
+
     function startLend(uint256 _lendId)
         public
         onlyWhenNotPaused
@@ -114,12 +129,37 @@ contract Lends is Ownable, Pausable {
         require(lend.borrowerHasFunded, "Borrower has not yet sent the agreed funds for this Lend Agreement");
         require(lend.lender == msg.sender, "Only the lender can start lending");
 
-        lend.endDate = now + (lend.borrowDur * 1 days);
+        lend.endDate = block.timestamp + (lend.borrowDur * 1 hours);
         lend.started = true;
 
         emit LendStarted(_lendId, lend.lender, lend.borrower, lend.endDate);
     }
-    
+
+    // Calculate how much of the borrower's fee can be claimed by the lender. This is based off how much of the borrow period is remaining, and
+    // how much the lender has already claimed.
+    function getFeeClaimable(uint256 _lendId)
+        internal
+        view
+        onlyWhenNotPaused
+        returns (uint256 claimable)
+    {
+        LendAgreement storage lend = lends[_lendId];
+        uint256 current = block.timestamp;
+        if(current < lend.endDate) {
+            uint256 diffHrs = (lend.endDate - current) / 3600;
+            uint256 portionPassed = ( (lend.borrowDur - diffHrs) / lend.borrowDur ) * 100; // %age of the agreed lend period that has passed
+            uint256 totalClaimableVal = lend.borrowFee * (portionPassed / 100);
+            uint256 requiredRemaining = lend.borrowFee - totalClaimableVal;
+            if(lend.remainingFee > requiredRemaining) {
+                claimable = lend.remainingFee - requiredRemaining;
+            } else {
+                claimable = 0;
+            }
+        } else {
+            claimable = lend.remainingFee;
+        }
+    }
+
     // Set up default functions for the contract
     receive() external payable {}
     fallback() external payable {}
