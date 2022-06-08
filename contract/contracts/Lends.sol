@@ -13,7 +13,6 @@ contract Lends is Ownable, Pausable {
     struct LendAgreement {
         address lender;
         address borrower;
-        bool borrowerApproval;
         bool borrowerHasFunded;
         bool lenderApproval;
         bool started;
@@ -72,18 +71,14 @@ contract Lends is Ownable, Pausable {
         emit NewLend(_lender, _borrower, _dur);
     }
 
-    function approveLendAgreement(uint256 _lendId)
+    function setLendAgreementApproval(uint256 _lendId, bool _state)
         public
         onlyWhenNotPaused
         lendAgreementExists(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
-
-        if(lend.lender == msg.sender) {
-            lend.lenderApproval = true;
-        } else if(lend.borrower == msg.sender) {
-            lend.borrowerApproval = true;
-        }
+        require(lend.lender == msg.sender, "Only the Lender can change approval of this lend agreement");
+        lend.lenderApproval = _state;
     }
 
     function sendFunds(uint256 _lendId)
@@ -125,7 +120,6 @@ contract Lends is Ownable, Pausable {
         LendAgreement storage lend = lends[_lendId];
 
         require(lend.lenderApproval, "Lender has not approved this Lend Agreement");
-        require(lend.borrowerApproval, "Borrower has not approved this Lend Agreement");
         require(lend.borrowerHasFunded, "Borrower has not yet sent the agreed funds for this Lend Agreement");
         require(lend.lender == msg.sender, "Only the lender can start lending");
 
