@@ -112,12 +112,14 @@ contract Lends is Ownable, Pausable {
     {
         LendAgreement storage lend = lends[_lendId];
         require(lend.borrower == msg.sender, "You are not the Borrower for this Lend Agreement");
-        require(block.timestamp > lend.endDate, "Borrow period has not yet ended");
-        // TODO: Confirm the item has been returned to the Lender, and no claim is being made on the stake
-        // TODO: Handle collateral that is reclaimed before the Lend is started
+        if(lend.started) {
+            require(block.timestamp > lend.endDate, "Borrow period has not yet ended");
+            // TODO: Confirm the item has been returned to the Lender, and no claim is being made on the stake
+        }
 
         uint256 stake = lend.remainingStake;
         lend.remainingStake = 0;
+        lend.borrowerHasFunded = false;
         totalStaked -= stake;
         // TODO: Sanity check the smart contract balance exceeds the value of 'totalStaked'?
 
