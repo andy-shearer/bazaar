@@ -24,21 +24,13 @@ contract Lends is Ownable, Pausable {
         uint256 remainingFee; // tracks the fee that is stored in the contract
     }
 
-    event NewLend(address lender, address borrower, uint256 borrowDur);
+    event LendCreation(address lender, address borrower, uint256 borrowDur);
     event LendStarted(uint256 id, address lender, address borrower, uint256 endDate);
     event FeeWithdraw(address claimant, uint256 amount);
     event CollateralWithdraw(address claimant, uint256 amount);
 
     modifier lendAgreementExists(uint256 _lendId) {
         require(bytes(lends[_lendId]).length > 0, "Lend Agreement does not exist");
-        _;
-    }
-
-    modifier lendAgreementParticipant(uint256 _lendId) {
-        LendAgreement storage lend = lends[_lendId];
-        bool isLender = lend.lender == msg.sender;
-        bool isBorrower = lend.borrower == msg.sender;
-        require((isLender) || (isBorrower), "You are not part of this Lend Agreement");
         _;
     }
 
@@ -68,7 +60,7 @@ contract Lends is Ownable, Pausable {
         lend.borrowDur = _dur;
         lend.borrowFee = _fee;
         lend.collateral = _collateral;
-        emit NewLend(_lender, _borrower, _dur);
+        emit LendCreation(_lender, _borrower, _dur);
     }
 
     function setLendAgreementApproval(uint256 _lendId, bool _state)
@@ -88,7 +80,7 @@ contract Lends is Ownable, Pausable {
         lendAgreementExists(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
-        require(lend.borrower == msg.sender, "You are not the borrower for this Lend Agreement");
+        require(lend.borrower == msg.sender, "You are not the Borrower for this Lend Agreement");
         require(msg.value >= (lend.borrowFee + lend.collateral), "Not enough funds sent");
 
         lend.remainingFee = lend.borrowFee;
@@ -104,9 +96,9 @@ contract Lends is Ownable, Pausable {
         lendAgreementExists(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
-        require(lend.lender == msg.sender, "Only the lender can claim the borrow fee");
-        require(block.timestamp > lend.endDate, "Fee only claimable once the borrow period has ended");
-        require(_claimVal <= lend.remainingFee, "Claim value is too high");
+        require(lend.lender == msg.sender, "You are not the Lender for this Lend Agreement");
+        require(block.timestamp > lend.endDate, "Borrow period has not yet ended");
+        require(_claimVal <= lend.remainingFee, "Claim value too high");
 
         lend.remainingFee -= _claimVal;
         payable(msg.sender).transfer({value: _claimVal});
@@ -141,8 +133,8 @@ contract Lends is Ownable, Pausable {
         LendAgreement storage lend = lends[_lendId];
 
         require(lend.lenderApproval, "Lender has not approved this Lend Agreement");
-        require(lend.borrowerHasFunded, "Borrower has not yet sent the agreed funds for this Lend Agreement");
-        require(lend.lender == msg.sender, "Only the lender can start lending");
+        require(lend.borrowerHasFunded, "Borrower has not sent the agreed funds for this Lend Agreement");
+        require(lend.lender == msg.sender, "You are not the Lender for this Lend Agreement");
 
         lend.endDate = block.timestamp + (lend.borrowDur * 1 hours);
         lend.started = true;
