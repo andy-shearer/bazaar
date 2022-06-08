@@ -50,7 +50,6 @@ the lender can begin to claim the contingency value that was staked by the borro
     * How can those using cash accounts interact seamlessly with crypto accounts?
 
 ### Modules
-
 * Borring & Lending “Borrow Bazaar”
 * Trading Post
 * Small scale services, eg:
@@ -58,3 +57,20 @@ the lender can begin to claim the contingency value that was staked by the borro
   * Sewing
   * Handyman bits such as painting
   * Computer support
+
+### Non-MVP bits
+* Part withdrawal of borrow fee during the borrow period (proportional to how much of the borrow window has elapsed)
+  * The Lender should not be allowed to make a claim on the Borrower's stake if **any** of the borrow fee has been claimed, either during or after the borrow window
+* Support accounts without crypto wallets?
+* Request category notification preferences - when someone in your local area adds a borrow request to the platform relating to an area you have subscribed to,
+a notification is sent. Categories could include:
+  * Tools & DIY
+  * Books
+  * Technology
+  * General
+
+### Removing funds
+There are a few cases that need to be considered when removing funds from the platform following the end of the borrow period:
+![](./res/removing_funds_drawio.svg)
+
+The process for claims made on the staked funds (red box in the above diagram) still needs further expansion.
