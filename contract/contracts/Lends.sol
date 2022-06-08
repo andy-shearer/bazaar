@@ -131,28 +131,28 @@ contract Lends is Ownable, Pausable {
 
     // Calculate how much of the borrower's fee can be claimed by the lender. This is based off how much of the borrow period is remaining, and
     // how much the lender has already claimed.
-    function getFeeClaimable(uint256 _lendId)
-        internal
-        view
-        onlyWhenNotPaused
-        returns (uint256 claimable)
-    {
-        LendAgreement storage lend = lends[_lendId];
-        uint256 current = block.timestamp;
-        if(current < lend.endDate) {
-            uint256 diffHrs = (lend.endDate - current) / 3600;
-            uint256 portionPassed = ( (lend.borrowDur - diffHrs) / lend.borrowDur ) * 100; // %age of the agreed lend period that has passed
-            uint256 totalClaimableVal = lend.borrowFee * (portionPassed / 100);
-            uint256 requiredRemaining = lend.borrowFee - totalClaimableVal;
-            if(lend.remainingFee > requiredRemaining) {
-                claimable = lend.remainingFee - requiredRemaining;
-            } else {
-                claimable = 0;
-            }
-        } else {
-            claimable = lend.remainingFee;
-        }
-    }
+    //    function getFeeClaimable(uint256 _lendId)
+    //        internal
+    //        view
+    //        onlyWhenNotPaused
+    //        returns (uint256 claimable)
+    //    {
+    //        LendAgreement storage lend = lends[_lendId];
+    //        uint256 current = block.timestamp;
+    //        if(current < lend.endDate) {
+    //            uint256 diffHrs = (lend.endDate - current) / 3600;
+    //            uint256 portionPassed = ( (lend.borrowDur - diffHrs) / lend.borrowDur ) * 100; // %age of the agreed lend period that has passed
+    //            uint256 totalClaimableVal = lend.borrowFee * (portionPassed / 100);
+    //            uint256 requiredRemaining = lend.borrowFee - totalClaimableVal;
+    //            if(lend.remainingFee > requiredRemaining) {
+    //                claimable = lend.remainingFee - requiredRemaining;
+    //            } else {
+    //                claimable = 0;
+    //            }
+    //        } else {
+    //            claimable = lend.remainingFee;
+    //        }
+    //    }
 
     // Set up default functions for the contract
     receive() external payable {}
