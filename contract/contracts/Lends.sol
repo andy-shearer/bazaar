@@ -101,7 +101,10 @@ contract Lends is Ownable, Pausable {
         require(_claimVal <= lend.remainingFee, "Claim value too high");
 
         lend.remainingFee -= _claimVal;
-        payable(msg.sender).transfer({value: _claimVal});
+
+        (bool sent, ) = payable(msg.sender).call{value: _claimVal}("");
+        require(sent, "Failed to send ether");
+
         emit FeeWithdraw(msg.sender, _claimVal);
     }
 
@@ -123,7 +126,8 @@ contract Lends is Ownable, Pausable {
         totalStaked -= stake;
         // TODO: Sanity check the smart contract balance exceeds the value of 'totalStaked'?
 
-        payable(msg.sender).transfer({value: stake});
+        (bool sent, ) = payable(msg.sender).call{value: stake}("");
+        require(sent, "Failed to send ether");
         emit CollateralWithdraw(msg.sender, stake);
     }
 
@@ -168,6 +172,14 @@ contract Lends is Ownable, Pausable {
     //            claimable = lend.remainingFee;
     //        }
     //    }
+
+    function withdraw() public onlyOwner {
+        address _owner = owner();
+        uint256 amount = address(this).balance;
+        (bool sent, ) = payable(_owner).call{value: amount}("");
+        require(sent, "Failed to withdraw ether");
+    }
+
 
     // Set up default functions for the contract
     receive() external payable {}
