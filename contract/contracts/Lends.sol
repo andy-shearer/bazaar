@@ -27,7 +27,7 @@ contract Lends is Ownable, Pausable {
     event NewLend(address lender, address borrower, uint256 borrowDur);
     event LendStarted(uint256 id, address lender, address borrower, uint256 endDate);
     event FeeWithdraw(address claimant, uint256 amount);
-    event StakeWithdraw(address claimant, uint256 amount);
+    event CollateralWithdraw(address claimant, uint256 amount);
 
     modifier lendAgreementExists(uint256 _lendId) {
         require(bytes(lends[_lendId]).length > 0, "Lend Agreement does not exist");
@@ -110,6 +110,27 @@ contract Lends is Ownable, Pausable {
 
         lend.remainingFee -= _claimVal;
         payable(msg.sender).transfer({value: _claimVal});
+        emit FeeWithdraw(msg.sender, _claimVal);
+    }
+
+    function reclaimCollateral(uint256 _lendId)
+        public
+        onlyWhenNotPaused
+        lendAgreementExists(_lendId)
+    {
+        LendAgreement storage lend = lends[_lendId];
+        require(lend.borrower == msg.sender, "You are not the Borrower for this Lend Agreement");
+        require(block.timestamp > lend.endDate, "Borrow period has not yet ended");
+        // TODO: Confirm the item has been returned to the Lender, and no claim is being made on the stake
+        // TODO: Handle collateral that is reclaimed before the Lend is started
+
+        uint256 stake = lend.remainingStake;
+        lend.remainingStake = 0;
+        totalStaked -= stake;
+        // TODO: Sanity check the smart contract balance exceeds the value of 'totalStaked'?
+
+        payable(msg.sender).transfer({value: stake});
+        emit CollateralWithdraw(msg.sender, stake);
     }
 
     function startLend(uint256 _lendId)
