@@ -104,9 +104,9 @@ contract Lends is Ownable, Pausable {
         lendAgreementExists(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
-        require(lend.lender == msg.sender, "Only the lender can claim the fee");
-        require(lend.remainingFee > 0, "Entire fee has been claimed");
-        require(_claimVal <= getFeeClaimable(_lendId), "Claim value is too high");
+        require(lend.lender == msg.sender, "Only the lender can claim the borrow fee");
+        require(block.timestamp > lend.endDate, "Fee only claimable once the borrow period has ended");
+        require(_claimVal <= lend.remainingFee, "Claim value is too high");
 
         lend.remainingFee -= _claimVal;
         payable(msg.sender).transfer({value: _claimVal});
