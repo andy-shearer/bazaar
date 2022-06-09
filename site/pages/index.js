@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import BorrowRequests from "../components/BorrowRequests";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -14,13 +15,10 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Main Content here
+          Borrow Requests
         </h1>
 
-        <p className={styles.description}>
-          This is the content
-        </p>
-
+        <BorrowRequests />
       </main>
 
       <Footer />
