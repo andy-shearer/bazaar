@@ -8,7 +8,7 @@ export default function BorrowRequests() {
   useEffect(() => {
     async function getBorrowRequests() {
       // Call to retrieve the borrow requests
-      let response = await fetch(`${server}/api/borrows`, {
+      let response = await fetch(`${server}/api/borrowReqs`, {
           method: 'GET'
       });
 
@@ -26,7 +26,7 @@ export default function BorrowRequests() {
   const requestElements = requests.map(req => {
     return (
       <div key={req.id} className={styles.borrowRequest}>
-        <h2>{req.item}</h2>
+        <h3>{req.item}</h3>
         <p>Request duration: {req.duration}</p>
         <p>Suggested borrow fee: {req.fee}</p>
       </div>

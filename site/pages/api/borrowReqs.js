@@ -5,31 +5,31 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getBorrows(req, res);
+            return getBorrowRequests(req, res);
         }
 
 //        case 'POST': {
-//            return addBorrow(req, res);
+//            return addBorrowRequest(req, res);
 //        }
 //
 //        case 'PUT': {
-//            return updateBorrow(req, res);
+//            return updateBorrowRequest(req, res);
 //        }
 //
 //        case 'DELETE': {
-//            return deleteBorrow(req, res);
+//            return deleteBorrowRequest(req, res);
 //        }
     }
 }
 
-async function getBorrows(req,res) {
+async function getBorrowRequests(req,res) {
     try {
         // Connect to the database
         let { db } = await connectToDatabase();
 
         // fetch the data
         let requests = await db
-            .collection("lend_listings")
+            .collection("borrow_requests")
             .find({})
             .sort({ published: -1 })
             .toArray();
