@@ -121,8 +121,80 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  max-height: 128px;
+  max-width: 300px;
+  grid-column: 1 / 2 ;
+}
+
+.header {
+  margin: 20px;
+  display: grid;
+  display: grid;
+  column-gap: 40px;
+  align-items: center;
+}
+
+.headerLink:hover{
+  text-decoration: underline;
+}
+
+.link1 {
+  grid-column: 4 / span 1 ;
+}
+
+.link2 {
+  grid-column: 5 / span 1 ;
+}
+
+.link3 {
+  grid-column: 6 / span 1 ;
+}
+
+.connectButton {
+  background: rgba(64, 146, 198);
+  color: white;
+  grid-column: 7 / 8;
+  height: 50px;
+  width: 200px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.connectButton:hover {
+  background: rgba(64, 146, 198, 0.8);
+}
+
+.infoText {
+  margin: 90px 60px 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoTextHeading {
+  font-weight: 600;
+  font-size: 6vw;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.infoTextSub {
+  font-weight: 600;
+  font-size: 2vw;
+  line-height: 2vw;
+  text-align: center;
+}
+
+.homepageGraphic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;}
+
+.homepageGraphic:hover {
+  cursor: default;
 }
 
 @media (max-width: 600px) {
