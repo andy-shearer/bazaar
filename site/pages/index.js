@@ -48,7 +48,7 @@ export default function Home() {
         className={styles.homepageGraphic}
       />
 
-      /*<main className={styles.main}>
+      {/*<main className={styles.main}>
         <h2 className={styles.title}>
           Borrow Requests
         </h2>
@@ -62,7 +62,7 @@ export default function Home() {
         <AvailableBorrows />
       </main>
 
-      <Footer />*/
+      <Footer />*/}
     </div>
   )
 }
