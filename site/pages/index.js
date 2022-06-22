@@ -18,6 +18,7 @@ export default function Home() {
       <section className={styles.header} id="headerContent">
         <img
           src="/logo_black.png"
+          alt="Site logo of a sign displaying a tent"
           className={styles.logo}
         />
 
@@ -32,7 +33,7 @@ export default function Home() {
       <section className={styles.infoText}>
         <p className={styles.infoTextHeading}>
           Borrow the things<br/>
-          you don't need to buy.
+          you don&apos;t need to buy.
         </p>
         <p className={styles.infoTextSub}>
           A secure way for strangers to lend & borrow items.<br/>
@@ -42,6 +43,7 @@ export default function Home() {
 
       <img
         src="/homepage.jpg"
+        alt="Image of three market stalls of vendors selling various items"
         title="Bazaar vector created by pikisuperstar - www.freepik.com"
         className={styles.homepageGraphic}
       />

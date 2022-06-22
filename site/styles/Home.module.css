@@ -183,7 +183,6 @@
 .infoTextSub {
   font-weight: 600;
   font-size: 2vw;
-  line-height: 2vw;
   text-align: center;
 }
 
@@ -191,7 +190,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 95%;}
+  width: 95%;
+}
 
 .homepageGraphic:hover {
   cursor: default;
