@@ -60,9 +60,9 @@ export default function Home() {
         </h2>
 
         <AvailableBorrows />
-      </main>
+      </main>*/
 
-      <Footer />*/}
+      <Footer />}
     </div>
   )
 }

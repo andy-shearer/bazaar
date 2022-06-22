@@ -19,8 +19,9 @@ export default function Footer() {
             src="/twitter.svg"
             width="20px"
             height="20px"
+            alt="Twitter logo"
           />
-          devshez
+          &nbsp;devshez
         </a>
         <br />
         <a href="https://twitter.com/TrustlessBazaar" target="_blank" rel="noopener noreferrer">
@@ -28,8 +29,9 @@ export default function Footer() {
             src="/twitter.svg"
             width="20px"
             height="20px"
+            alt="Twitter logo"
           />
-          TrustlessBazaar
+          &nbsp;TrustlessBazaar
         </a>
       </section>
     </footer>
