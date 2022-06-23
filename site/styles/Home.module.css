@@ -103,18 +103,6 @@
   text-align: center;
 }
 
-.homepageGraphic {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 300px;
-  max-width: 500px;
-}
-
-.homepageGraphic:hover {
-  cursor: default;
-}
-
 .detailContainer {
   display: grid;
   column-gap: 40px;
@@ -142,13 +130,16 @@
 
 .detailGraphic {
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
   grid-column-start: 1;
   grid-column-end: span 2;
+  padding-left: 50px;
 }
 
 .graphicRight {
   grid-column-start: 5;
+  padding-left: 0px;
+  padding-right: 50px;
 }
 
 @media (max-width: 600px) {
