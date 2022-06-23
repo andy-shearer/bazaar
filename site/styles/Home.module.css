@@ -106,8 +106,9 @@
 .detailContainer {
   display: grid;
   column-gap: 40px;
+  row-gap: 10vh;
   align-items: center;
-  margin: 100px 50px 100px 50px;
+  margin: 10vw 50px 100px 50px;
   text-align: center;
 }
 
