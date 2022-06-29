@@ -134,7 +134,7 @@
     grid-column: 6 / span 1 ;
   }
 
-  .connectButton {
+  .connectButton, .walletInfo {
     grid-column: 7 / 8;
   }
 
@@ -188,6 +188,18 @@
 
 .connectButton:hover {
   background: rgba(64, 146, 198, 0.8);
+}
+
+.walletInfo {
+  background: rgba(64, 146, 198, 0.8);
+  color: white;
+  height: 50px;
+  width: 200px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .infoTextHeading {

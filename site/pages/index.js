@@ -6,7 +6,56 @@ import AvailableBorrows from "../components/AvailableBorrows";
 import Footer from "../components/Footer";
 import classNames from "classnames";
 
+import Web3Modal from "web3modal"
+import { useState, useEffect, useRef } from "react";
+import { Contract, providers, utils } from "ethers"
+
 export default function Home() {
+  const [ walletConnected, setWalletConnected ] = useState("");
+  const web3ModalRef = useRef();
+
+  /**
+   * Attempt to obtain the provider which will prompt wallet connection when used for the first time
+   */
+  const connectWallet = async () => {
+    if(walletConnected === "") {
+      web3ModalRef.current = new Web3Modal({
+        network: "rinkeby",
+        providerOptions: {},
+        disableInjectedProvider: false
+      });
+    }
+
+    try {
+      const signer = await getProviderOrSigner(true);
+      const address = await signer.getAddress();
+      console.debug("Wallet has been successfully connected", address);
+      setWalletConnected(address);
+    } catch (err) {
+      /* Ignore the following errors:
+       *   -32002:  Already processing eth_requestAccounts
+       *   4001:    User rejected the request
+       */
+      if(![-32002, 4001].includes(err.code)) {
+        console.log(err);
+      }
+    }
+  }
+
+  const getProviderOrSigner = async (signer) => {
+    const instance = await web3ModalRef.current.connect();
+    const provider = new providers.Web3Provider(instance);
+
+    // If user is not connected to the Mumbai test network, let them know and throw an error
+    const { chainId } = await provider.getNetwork();
+    if (chainId !== 4) {
+      window.alert("Change the network to Ethereum Rinkeby (test network) and reload");
+      throw new Error("Change the network to Ethereum Rinkeby (test network)");
+    }
+
+    return signer ? await provider.getSigner() : provider;
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,9 +74,17 @@ export default function Home() {
         <a href="" className={classNames(styles.headerLink, styles.link1)}>About</a>
         <a href="" className={classNames(styles.headerLink, styles.link2)}>How it Works</a>
         <a href="" className={classNames(styles.headerLink, styles.link3)}>App</a>
-        <button className={styles.connectButton}>
-            Connect Wallet
-        </button>
+        { walletConnected === "" ?
+            <button
+              className={styles.connectButton}
+              onClick={connectWallet}>
+                Connect Wallet
+            </button>
+          :
+            <div className={styles.walletInfo}>
+              Wallet: {walletConnected.slice(0, 6)}...{walletConnected.slice(-4)}
+            </div>
+        }
       </section>
 
       <section className={styles.infoText}>
