@@ -70,11 +70,6 @@
 }
 
 @media only screen and (max-width: 915px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-
   .link1 {
     grid-row: 2;
   }
@@ -92,7 +87,16 @@
     margin: auto;
   }
 
+  .infoTextSub {
+    font-size: 3vw;
+  }
+
+  .detailHeader {
+    font-size: 4vw;
+  }
+
   .detailText {
+    font-size: 2.5vw;
     padding: 1vh 0;
   }
 
@@ -134,8 +138,16 @@
     grid-column: 7 / 8;
   }
 
+  .infoTextSub {
+    font-size: 2vw;
+  }
+
   .detailContainer {
     row-gap: 10vh;
+  }
+
+  .detailHeader {
+    font-size: 2vw;
   }
 
   .detailGraphic {
@@ -149,6 +161,7 @@
   .detailText {
     padding: 0% 10%;
     grid-column-end: span 4;
+    font-size: 1.5vw;
   }
 
   .graphicRight {
@@ -186,7 +199,6 @@
 
 .infoTextSub {
   font-weight: 600;
-  font-size: 2vw;
   text-align: center;
 }
 
@@ -199,13 +211,7 @@
 }
 
 .detailHeader {
-  font-size: 2vw;
   margin-bottom: 0.1vh;
-}
-
-.detailText {
-  font-size: 1.5vw;
-  text-align: center;
 }
 
 .borrowRequest {
