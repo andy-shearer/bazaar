@@ -144,6 +144,7 @@
 
   .detailContainer {
     row-gap: 10vh;
+    margin: 10vw 50px 100px 50px;
   }
 
   .detailHeader {
@@ -206,7 +207,6 @@
   display: grid;
   column-gap: 40px;
   align-items: center;
-  margin: 10vw 50px 100px 50px;
   text-align: center;
 }
 
