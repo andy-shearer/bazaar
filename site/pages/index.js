@@ -7,12 +7,19 @@ import Footer from "../components/Footer";
 import classNames from "classnames";
 
 import Web3Modal from "web3modal"
+import { ethers } from "ethers";
 import { useState, useEffect, useRef } from "react";
 import { Contract, providers, utils } from "ethers"
 
 export default function Home() {
   const [ walletConnected, setWalletConnected ] = useState("");
   const web3ModalRef = useRef();
+
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    provider.listAccounts()
+      .then(addresses => addresses.length > 0 && connectWallet());
+  }, []);
 
   /**
    * Attempt to obtain the provider which will prompt wallet connection when used for the first time
@@ -29,7 +36,7 @@ export default function Home() {
     try {
       const signer = await getProviderOrSigner(true);
       const address = await signer.getAddress();
-      console.debug("Wallet has been successfully connected", address);
+      //console.debug("Wallet has been successfully connected", address);
       setWalletConnected(address);
     } catch (err) {
       /* Ignore the following errors:
