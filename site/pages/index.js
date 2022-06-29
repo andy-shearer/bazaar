@@ -16,9 +16,13 @@ export default function Home() {
   const web3ModalRef = useRef();
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    provider.listAccounts()
-      .then(addresses => addresses.length > 0 && connectWallet());
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      provider.listAccounts()
+        .then(addresses => addresses.length > 0 && connectWallet());
+    } catch(e) {
+      console.log("We couldn't detect a wallet provider - You may not be able to connect to the app");
+    }
   }, []);
 
   /**
