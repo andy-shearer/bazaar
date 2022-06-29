@@ -78,7 +78,7 @@ export default function Home() {
           className={styles.logo}
         />
 
-        <a href="" className={classNames(styles.headerLink, styles.link1)}>About</a>
+        <a href="#about" className={classNames(styles.headerLink, styles.link1)}>About</a>
         <a href="" className={classNames(styles.headerLink, styles.link2)}>How it Works</a>
         <a href="" className={classNames(styles.headerLink, styles.link3)}>App</a>
         { walletConnected === "" ?
@@ -105,7 +105,10 @@ export default function Home() {
         </p>
       </section>
 
-      <div className={styles.detailContainer}>
+      <div
+        id="about"
+        className={styles.detailContainer}
+      >
         <div className={styles.detailText}>
           <h2 className={styles.detailHeader}>
             Borrow More, Buy Less
