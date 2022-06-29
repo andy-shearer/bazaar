@@ -55,14 +55,14 @@ export default function Home() {
           src="/market_1.png"
           alt="Market stall vendor selling various items"
           title="Bazaar vector created by pikisuperstar - www.freepik.com"
-          className={classNames(styles.detailGraphic, styles.graphicRight)}
+          className={classNames(styles.detailGraphic, styles.dg1, styles.graphicRight)}
         />
 
         <img
           src="/market_2.png"
           alt="Market stall vendor selling various items"
           title="Bazaar vector created by pikisuperstar - www.freepik.com"
-          className={styles.detailGraphic}
+          className={classNames(styles.detailGraphic, styles.dg2)}
         />
 
         <div className={classNames(styles.detailText, styles.textRight)}>
