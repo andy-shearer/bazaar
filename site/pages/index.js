@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
 import BorrowRequests from "../components/BorrowRequests";
 import AvailableBorrows from "../components/AvailableBorrows";
 import Footer from "../components/Footer";
+import PostBorrowRequest from "../components/PostBorrowRequest";
 import classNames from "classnames";
 
 import Web3Modal from "web3modal"
@@ -11,7 +13,7 @@ import { ethers } from "ethers";
 import { useState, useEffect, useRef } from "react";
 import { Contract, providers, utils } from "ethers"
 
-export default function Home() {
+export default function Home({ posts }) {
   const [ walletConnected, setWalletConnected ] = useState("");
   const web3ModalRef = useRef();
 
@@ -68,35 +70,14 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.landingContainer}>
       <Head>
         <title>Trustless Bazaar</title>
         <meta name="description" content="Secure borrowing and lending" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className={styles.header} id="headerContent">
-        <img
-          src="/logo_black.png"
-          alt="Site logo of a sign displaying a tent"
-          className={styles.logo}
-        />
-
-        <a href="#about" className={classNames(styles.headerLink, styles.link1)}>About</a>
-        <a href="" className={classNames(styles.headerLink, styles.link2)}>How it Works</a>
-        <a href="" className={classNames(styles.headerLink, styles.link3)}>App</a>
-        { walletConnected === "" ?
-            <button
-              className={styles.connectButton}
-              onClick={connectWallet}>
-                Connect Wallet
-            </button>
-          :
-            <div className={styles.walletInfo}>
-              Wallet: {walletConnected.slice(0, 6)}...{walletConnected.slice(-4)}
-            </div>
-        }
-      </section>
+      <Nav wallet={walletConnected} onClickConnect={connectWallet} />
 
       <section className={styles.infoText}>
         <p className={styles.infoTextHeading}>
@@ -148,6 +129,18 @@ export default function Home() {
         </div>
       </div>
 
+      <div className={styles.container}>
+          {posts.length === 0 ? (
+              <h2>No borrow requests :(</h2>
+          ) : (
+              <ul>
+                  {posts.map((post, i) => (
+                      <PostBorrowRequest post={post} key={i} />
+                  ))}
+              </ul>
+          )}
+      </div>
+
       {/*
       <div className={styles.infoContainer}>
         <h2 className={styles.infoHeader}>
@@ -182,3 +175,13 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getServerSideProps(ctx) {
+
+  return {
+      props: {
+          posts: [],
+      },
+  };
+}
+
