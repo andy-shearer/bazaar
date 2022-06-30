@@ -12,6 +12,7 @@ async function getRequests(req,res){
         .collection('borrow_requests')
         .find({})
         .sort({ createdAt: -1 })
+        .limit(10)
         .toArray();
     // return the posts
     return res.json({

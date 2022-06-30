@@ -137,7 +137,7 @@ export default function Home({ posts }) {
               <h2 className={styles.requestHeading}>No borrow requests :(</h2>
           ) : (
           <>
-            <h2 className={styles.requestHeading}>Borrow requests :</h2>
+            <h2 className={styles.requestHeading}>Most Recent Requests :</h2>
             <div className={styles.borrowRequestContainer}>
               {borrowElements}
             </div>
