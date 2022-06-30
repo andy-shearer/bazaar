@@ -11,7 +11,7 @@ async function getRequests(req,res){
     let posts = await db
         .collection('borrow_requests')
         .find({})
-        .sort({ published: -1 })
+        .sort({ createdAt: -1 })
         .toArray();
     // return the posts
     return res.json({
