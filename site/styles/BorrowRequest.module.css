@@ -1,0 +1,43 @@
+.form {
+    width: 100%;
+}
+
+.formItem {
+    display: block;
+    margin: 10px 10px;
+}
+
+.formItem label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formItem input[type='text'] {
+    display: block;
+    width: 100%;
+    padding: 10px 10px;
+    height: 60px;
+}
+
+.error {
+    color: red;
+}
+
+.message {
+    color: green;
+}
+
+.requestContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 15px;
+  margin: auto;
+  background: whitesmoke;
+  box-shadow: 5px 10px lightblue;
+  max-width: 80%;
+}

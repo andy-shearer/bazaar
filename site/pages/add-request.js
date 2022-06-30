@@ -1,5 +1,5 @@
 import Nav from '../components/Nav';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/BorrowRequest.module.css';
 import {useState, useEffect, useRef} from "react";
 import Web3Modal from "web3modal";
 import { Contract, providers, utils } from "ethers"
@@ -118,9 +118,9 @@ export default function AddRequest() {
 
 
     return (
-        <div>
+        <div className={styles.addRequestWrapper}>
             <Nav wallet={walletConnected} onClickConnect={connectWallet} />
-            <div className={styles.container}>
+            <div className={styles.requestContainer}>
                 <form onSubmit={handlePost} className={styles.form}>
                     {error ? (
                         <div className={styles.formItem}>
@@ -139,24 +139,27 @@ export default function AddRequest() {
                             name="title"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
-                            placeholder="Title"
+                            placeholder="I'd like to borrow..."
                         />
                     </div>
                     <div className={styles.formItem}>
                         <label>Duration</label>
-                        <textarea
+                        <input
+                            type="text"
                             name="duration"
                             onChange={(e) => setDuration(e.target.value)}
                             value={duration}
-                            placeholder="Borrow Duration"
+                            placeholder="And I'll give it back after..."
                         />
                     </div>
                     <div className={styles.formItem}>
                         <label>Borrower Address</label>
-                        <textarea
+                        <input
+                            type="text"
                             name="address"
                             value={walletConnected}
-                            placeholder="Wallet not connected"
+                            placeholder="Need to connect wallet!"
+                            title="Not editable"
                             disabled={true}
                         />
                     </div>
