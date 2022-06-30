@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 import BorrowRequests from "../components/BorrowRequests";
 import AvailableBorrows from "../components/AvailableBorrows";
 import Nav from "../components/Nav";
-import PostCard from "../components/PostCard";
+import PostCard from "../components/Postcard";
 import Footer from "../components/Footer";
 import classNames from "classnames";
 
