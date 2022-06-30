@@ -77,8 +77,12 @@
       grid-row: 4;
     }
 
-    .connectButton, .walletInfo {
+    .link4 {
       grid-row: 5;
+    }
+
+    .connectButton, .walletInfo {
+      grid-row: 6;
       margin: auto;
     }
 }
@@ -101,7 +105,11 @@
     grid-column: 6 / span 1 ;
   }
 
+  .link4 {
+    grid-column: 7 / span 1 ;
+  }
+
   .connectButton, .walletInfo {
-    grid-column: 7 / 8;
+    grid-column: 8 / 9;
   }
 }

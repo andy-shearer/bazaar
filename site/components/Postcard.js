@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function PostBorrowRequest({ post }) {
+export default function PostCard({ post }) {
     return (
         <>
             <li>

@@ -7,6 +7,8 @@ const options = {
   useUnifiedTopology: true,
 };
 
+// TODO: Only connect to the DB over HTTPS if we're not in development
+
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local');
 }

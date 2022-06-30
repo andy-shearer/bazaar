@@ -1,15 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Nav from "../components/Nav";
 import BorrowRequests from "../components/BorrowRequests";
 import AvailableBorrows from "../components/AvailableBorrows";
+import Nav from "../components/Nav";
+import PostCard from "../components/PostCard";
 import Footer from "../components/Footer";
-import PostBorrowRequest from "../components/PostBorrowRequest";
 import classNames from "classnames";
 
 import Web3Modal from "web3modal"
-import { ethers } from "ethers";
 import { useState, useEffect, useRef } from "react";
 import { Contract, providers, utils } from "ethers"
 
@@ -19,7 +18,7 @@ export default function Home({ posts }) {
 
   useEffect(() => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new providers.Web3Provider(window.ethereum);
       provider.listAccounts()
         .then(addresses => addresses.length > 0 && connectWallet());
     } catch(e) {
@@ -135,7 +134,7 @@ export default function Home({ posts }) {
           ) : (
               <ul>
                   {posts.map((post, i) => (
-                      <PostBorrowRequest post={post} key={i} />
+                      <PostCard post={post} key={i} />
                   ))}
               </ul>
           )}
@@ -177,11 +176,18 @@ export default function Home({ posts }) {
 }
 
 export async function getServerSideProps(ctx) {
+    // get the current environment
+    let dev = process.env.VERCEL_ENV !== 'production';
+    let { DEV_URL, PROD_URL } = process.env;
 
-  return {
-      props: {
-          posts: [],
-      },
-  };
+    // request posts from api
+    let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/requests`);
+    // extract the data
+    let data = await response.json();
+
+    return {
+        props: {
+            posts: data['message'],
+        },
+    };
 }
-
