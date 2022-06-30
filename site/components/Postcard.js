@@ -9,7 +9,7 @@ export default function PostCard({ post }) {
                 <ul>
                   <li>{post.duration}</li>
                 </ul>
-                <small>{new Date(post.createdAt).toLocaleDateString()}</small>
+                <small suppressHydrationWarning={true}>{new Date(post.createdAt).toLocaleDateString()}</small>
                 <br />
                     <button type="button">
                         {'Publish'}

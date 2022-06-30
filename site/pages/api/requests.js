@@ -1,3 +1,5 @@
+import sanitizeHtml from 'sanitize-html';
+
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
@@ -26,6 +28,13 @@ async function getRequests(req,res){
 }
 
 async function addRequest(req, res) {
+    // Sanitize the input to protect against XSS
+    let {title, duration, address} = JSON.parse(req.body);
+
+    req.title = sanitize(title);
+    req.duration = sanitize(duration);
+    req.address = sanitize(address);
+
     try {
         // connect to the database
         let { db } = await connectToDatabase();
@@ -64,4 +73,15 @@ export default async function handler(req, res) {
 //                return deletePost(req, res);
 //            }
     }
+}
+
+function sanitize(dirty) {
+  if(dirty) {
+    const clean = sanitizeHtml(dirty, {
+      allowedTags: [],
+      allowedAttributes: {}
+    });
+    console.log(`Sanitized ${dirty} into ${clean}`);
+    return clean;
+  }
 }
