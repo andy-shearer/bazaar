@@ -82,6 +82,40 @@
   margin-bottom: 40px;
 }
 
+.requestHeading {
+  margin-top: 10vh;
+  font-weight: 600;
+  font-size: 5em;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.requestTitle {
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.requestContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 40%;
+  border: 1px solid;
+  border-radius: 15px;
+  margin: 2vh 2vw;
+  background: whitesmoke;
+  box-shadow: 5px 10px lightblue;
+}
+
+.requestContainer p {
+    margin: 0.8vh 0;
+}
+
+
 @media only screen and (max-width: 915px) {
   .infoTextSub {
     font-size: 3vw;
@@ -110,6 +144,10 @@
 
   .dg2 {
     grid-row: 4;
+  }
+
+  .requestHeading {
+    font-size: 2.5em;
   }
 }
 
@@ -149,5 +187,9 @@
 
   .textRight {
     grid-column-start: 3;
+  }
+
+  .requestHeading {
+    font-size: 3vw;
   }
 }

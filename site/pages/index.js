@@ -68,6 +68,10 @@ export default function Home({ posts }) {
     return signer ? await provider.getSigner() : provider;
   }
 
+  const borrowElements = posts.map((post, i) => (
+      <PostCard post={post} key={i} />
+  ));
+
   return (
     <div className={styles.landingContainer}>
       <Head>
@@ -128,15 +132,16 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-      <div className={styles.container}>
+      <div id="borrowRequests" className={styles.container}>
           {posts.length === 0 ? (
-              <h2>No borrow requests :(</h2>
+              <h2 className={styles.requestHeading}>No borrow requests :(</h2>
           ) : (
-              <ul>
-                  {posts.map((post, i) => (
-                      <PostCard post={post} key={i} />
-                  ))}
-              </ul>
+          <>
+            <h2 className={styles.requestHeading}>Borrow requests :</h2>
+            <div className={styles.borrowRequestContainer}>
+              {borrowElements}
+            </div>
+          </>
           )}
       </div>
 
