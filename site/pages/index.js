@@ -58,7 +58,7 @@ export default function Home({ posts }) {
     const instance = await web3ModalRef.current.connect();
     const provider = new providers.Web3Provider(instance);
 
-    // If user is not connected to the Mumbai test network, let them know and throw an error
+    // If user is not connected to the Ethereum Rinkeby test network, let them know and throw an error
     const { chainId } = await provider.getNetwork();
     if (chainId !== 4) {
       window.alert("Change the network to Ethereum Rinkeby (test network) and reload");

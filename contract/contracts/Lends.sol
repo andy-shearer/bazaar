@@ -11,6 +11,7 @@ contract Lends is Ownable, Pausable {
     mapping(uint256 => LendAgreement) public lends;
 
     struct LendAgreement {
+        bool valid;
         address lender;
         address borrower;
         bool borrowerHasFunded;
@@ -29,8 +30,8 @@ contract Lends is Ownable, Pausable {
     event FeeWithdraw(address claimant, uint256 amount);
     event CollateralWithdraw(address claimant, uint256 amount);
 
-    modifier lendAgreementExists(uint256 _lendId) {
-        require(bytes(lends[_lendId]).length > 0, "Lend Agreement does not exist");
+    modifier validLendAgreement(uint256 _lendId) {
+        require(lends[_lendId].valid, "Lend Agreement not valid");
         _;
     }
 
@@ -47,7 +48,7 @@ contract Lends is Ownable, Pausable {
         uint256 _collateral
     )
         public
-        onlyWhenNotPaused
+        whenNotPaused
         returns (uint256 newLendId)
     {
         require(_lender != address(0), "Invalid lender address");
@@ -55,6 +56,7 @@ contract Lends is Ownable, Pausable {
 
         newLendId = ++agreementCount;
         LendAgreement storage lend = lends[newLendId];
+        lend.valid = true;
         lend.lender = _lender;
         lend.borrower = _borrower;
         lend.borrowDur = _dur;
@@ -65,8 +67,8 @@ contract Lends is Ownable, Pausable {
 
     function setLendAgreementApproval(uint256 _lendId, bool _state)
         public
-        onlyWhenNotPaused
-        lendAgreementExists(_lendId)
+        whenNotPaused
+        validLendAgreement(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
         require(lend.lender == msg.sender, "Only the Lender can change approval of this lend agreement");
@@ -76,8 +78,8 @@ contract Lends is Ownable, Pausable {
     function sendFunds(uint256 _lendId)
         public
         payable
-        onlyWhenNotPaused
-        lendAgreementExists(_lendId)
+        whenNotPaused
+        validLendAgreement(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
         require(lend.borrower == msg.sender, "You are not the Borrower for this Lend Agreement");
@@ -91,9 +93,8 @@ contract Lends is Ownable, Pausable {
 
     function claimFee(uint256 _lendId, uint256 _claimVal)
         public
-        view
-        onlyWhenNotPaused
-        lendAgreementExists(_lendId)
+        whenNotPaused
+        validLendAgreement(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
         require(lend.lender == msg.sender, "You are not the Lender for this Lend Agreement");
@@ -110,8 +111,8 @@ contract Lends is Ownable, Pausable {
 
     function reclaimCollateral(uint256 _lendId)
         public
-        onlyWhenNotPaused
-        lendAgreementExists(_lendId)
+        whenNotPaused
+        validLendAgreement(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
         require(lend.borrower == msg.sender, "You are not the Borrower for this Lend Agreement");
@@ -133,8 +134,8 @@ contract Lends is Ownable, Pausable {
 
     function startLend(uint256 _lendId)
         public
-        onlyWhenNotPaused
-        lendAgreementExists(_lendId)
+        whenNotPaused
+        validLendAgreement(_lendId)
     {
         LendAgreement storage lend = lends[_lendId];
 
@@ -153,7 +154,7 @@ contract Lends is Ownable, Pausable {
     //    function getFeeClaimable(uint256 _lendId)
     //        internal
     //        view
-    //        onlyWhenNotPaused
+    //        whenNotPaused
     //        returns (uint256 claimable)
     //    {
     //        LendAgreement storage lend = lends[_lendId];
