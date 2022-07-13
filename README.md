@@ -1,4 +1,5 @@
 # Trustless Bazaar 🎪
+# Try it here: https://trustless-bazaar.vercel.app/
 
 ## What is it? 🤔
 The Trustless Bazaar is a platform that will allow two parties that are geographically close to one another (eg. living in the 
