@@ -11,7 +11,11 @@ export default function Nav(props) {
         <Head>
           <title>Trustless Bazaar</title>
           <meta name="description" content="Secure borrowing and lending" />
+
           <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+          <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet"/>
         </Head>
 
         <section className={styles.header} id="headerContent">
