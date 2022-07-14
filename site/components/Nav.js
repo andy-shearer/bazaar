@@ -15,14 +15,14 @@ export default function Nav(props) {
         </Head>
 
         <section className={styles.header} id="headerContent">
-          <a href="/">
+          <Link href="/">
             <img
               src="/logo_black.png"
               alt="Site logo of a sign displaying a tent"
               className={styles.logo}
               role="button"
             />
-          </a>
+          </Link>
 
           <Link href='/#about'>
             <a className={classNames(styles.headerLink, styles.link1)}>About</a>

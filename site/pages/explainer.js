@@ -69,7 +69,7 @@ export default function Explainer() {
     /*==================================================================
      * Actual component logic
      *=================================================================*/
-    const [ timer, setTimer ] = useState(60);
+    const [ timer, setTimer ] = useState(61);
 
     useEffect(() => {
       let myInterval = setInterval(() => {
@@ -85,14 +85,10 @@ export default function Explainer() {
       };
     });
 
-//    setInterval(() => {
-//      //setTimer(prevTimer => prevTimer >= 0 ? prevTimer-- : clearInterval(this));
-//      setTimer((timer) => timer-1);
-//      console.log(timer);
-//    }, 1000);
-
     const formatTimer = (unformatted) => {
-      if(unformatted < 10) {
+      if (unformatted > 60) {
+        return "00:60";
+      } else if(unformatted < 10) {
         return `00:0${unformatted}`;
       } else {
         return `00:${unformatted}`;
@@ -103,7 +99,7 @@ export default function Explainer() {
       <>
         <Nav wallet={walletConnected} onClickConnect={connectWallet} />
         <div className={styles.infoTextHeading}>
-            Here's how it works.<br />
+            Here&apos;s how it works.<br />
             Explained in 60 seconds.
         </div>
         <div className={styles.countdown}>

@@ -16,6 +16,7 @@
 .logo {
   max-height: 128px;
   max-width: 300px;
+  cursor: pointer;
 }
 
 .header {
