@@ -28,7 +28,7 @@
   font-family: 'Graduate', cursive;
   font-style: normal;
   font-weight: 400;
-  font-size: 128px;
+  font-size: 8vw;
   align-items: center;
   text-align: center;
   margin: 50px 0px;
@@ -102,6 +102,16 @@
   width: 80%;
   margin: 0;
 }
+
+.redirectLink {
+  color: rgba(7, 105, 252, 1);
+  font-size: 2vw;
+}
+
+.redirectLink:hover{
+  text-decoration: underline;
+}
+
 
 /* mobile media query */
 @media only screen and (max-width: 915px) {

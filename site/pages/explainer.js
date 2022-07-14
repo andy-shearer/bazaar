@@ -87,13 +87,7 @@ export default function Explainer() {
     });
 
     const formatTimer = (unformatted) => {
-      if (unformatted > 60) {
-        return "00:60";
-      } else if(unformatted < 10) {
-        return `00:0${unformatted}`;
-      } else {
-        return `00:${unformatted}`;
-      }
+      return (unformatted > 60) ? 60 : unformatted;
     };
 
     return (
@@ -101,11 +95,9 @@ export default function Explainer() {
         <Nav wallet={walletConnected} onClickConnect={connectWallet} />
         <div className={styles.infoTextHeading}>
             Here&apos;s how it works.<br />
-            Explained in 60 seconds.
+            Explained in {formatTimer(timer)} seconds.
         </div>
-        <div className={styles.countdown}>
-          {formatTimer(timer)}
-        </div>
+
         <div className={styles.infoTextHeading}>
             👇
         </div>
@@ -148,6 +140,21 @@ export default function Explainer() {
             </div>
             <img
               src="./stall_img.png"
+              className={styles.graphicRight}
+            />
+          </div>
+
+          {/* Redirect */}
+          <div className={styles.thirdsGrid}>
+            <div className={styles.twoThirds}>
+              Can someone borrow from you?<br/><br/>
+              <a
+                href="/#borrowRequests"
+                className={styles.redirectLink}
+              > What do people want to borrow?</a>
+            </div>
+            <img
+              src="./community.png"
               className={styles.graphicRight}
             />
           </div>
