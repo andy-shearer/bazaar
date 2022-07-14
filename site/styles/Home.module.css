@@ -106,13 +106,17 @@
   min-width: 40%;
   border: 1px solid;
   border-radius: 15px;
-  margin: 2vh 2vw;
+  margin: 3.5vh 2vw;
   background: whitesmoke;
   box-shadow: 5px 10px lightblue;
 }
 
 .requestContainer p {
-    margin: 0.8vh 0;
+  margin: 0.8vh 0;
+}
+
+.requestContainer p:last-child {
+  margin-bottom: 3vh;
 }
 
 @media only screen and (max-width: 915px) {
