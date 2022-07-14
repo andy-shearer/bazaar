@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import BorrowRequests from "../components/BorrowRequests";
@@ -10,7 +9,7 @@ import classNames from "classnames";
 
 import Web3Modal from "web3modal"
 import { useState, useEffect, useRef } from "react";
-import { Contract, providers, utils } from "ethers"
+import { Contract, providers } from "ethers"
 
 export default function Home({ posts }) {
   const [ walletConnected, setWalletConnected ] = useState("");
@@ -74,12 +73,6 @@ export default function Home({ posts }) {
 
   return (
     <div className={styles.landingContainer}>
-      <Head>
-        <title>Trustless Bazaar</title>
-        <meta name="description" content="Secure borrowing and lending" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Nav wallet={walletConnected} onClickConnect={connectWallet} />
 
       <section className={styles.infoText}>

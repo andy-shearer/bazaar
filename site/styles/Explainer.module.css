@@ -1,0 +1,50 @@
+ @import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+.main {
+  min-height: 85vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.infoTextHeading {
+  margin-top: 10vh;
+  font-weight: 600;
+  font-size: 6vw;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.countdown {
+  font-family: 'Graduate', cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 128px;
+  align-items: center;
+  text-align: center;
+  margin: 50px 0px;
+}
+
+.infoTextSub {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* mobile media query */
+@media only screen and (max-width: 915px) {
+
+}
+
+/* desktop media query */
+@media only screen and (min-width: 915px) {
+
+}

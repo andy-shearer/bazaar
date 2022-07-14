@@ -2,7 +2,7 @@ import Nav from '../components/Nav';
 import styles from '../styles/BorrowRequest.module.css';
 import {useState, useEffect, useRef} from "react";
 import Web3Modal from "web3modal";
-import { Contract, providers, utils } from "ethers"
+import { providers } from "ethers"
 
 export default function AddRequest() {
 
