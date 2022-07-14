@@ -7,19 +7,21 @@ export default function Nav(props) {
 
     return (
       <section className={styles.header} id="headerContent">
-        <img
-          src="/logo_black.png"
-          alt="Site logo of a sign displaying a tent"
-          className={styles.logo}
-          role="button"
-        />
-
-        <Link href='/'>
-          <a className={classNames(styles.headerLink, styles.link1)}>Home</a>
-        </Link>
+        <a href="/">
+          <img
+            src="/logo_black.png"
+            alt="Site logo of a sign displaying a tent"
+            className={styles.logo}
+            role="button"
+          />
+        </a>
 
         <Link href='/#about'>
-          <a className={classNames(styles.headerLink, styles.link2)}>About</a>
+          <a className={classNames(styles.headerLink, styles.link1)}>About</a>
+        </Link>
+
+        <Link href='/explainer'>
+          <a className={classNames(styles.headerLink, styles.link2)}>How It Works</a>
         </Link>
 
         <Link href="/#borrowRequests">
