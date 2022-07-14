@@ -1,5 +1,6 @@
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import Link from 'next/link';
 import styles from '../styles/Explainer.module.css';
 import React, {useState, useEffect, useRef} from "react";
 import Web3Modal from "web3modal";
@@ -148,10 +149,10 @@ export default function Explainer() {
           <div className={styles.thirdsGrid}>
             <div className={styles.twoThirds}>
               Can someone borrow from you?<br/><br/>
-              <a
+              <Link
                 href="/#borrowRequests"
                 className={styles.redirectLink}
-              > What do people want to borrow?</a>
+              > What do people want to borrow?</Link>
             </div>
             <img
               src="./community.png"
