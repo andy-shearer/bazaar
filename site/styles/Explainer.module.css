@@ -39,6 +39,70 @@
   text-align: center;
 }
 
+.explanation {
+  margin: 10vh 20vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20vh;
+}
+
+.explanation img {
+    max-height: 20vh;
+}
+
+.thirdsGrid {
+  display: grid;
+  column-gap: 10vw;
+  row-gap: 5vh;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 3vw;
+  text-align: center;
+  justify-items: center;
+}
+
+.twoThirds {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    text-align: left;
+}
+
+.wholeRow {
+    grid-column-start: 1;
+    grid-column-end: span 3;
+}
+
+.graphicRight {
+    grid-column-start: 3;
+    grid-column-end: span 1;
+}
+
+.green {
+  color: rgba(13, 237, 102, 1);
+}
+
+.orange {
+  color: rgba(237, 94, 13, 1);
+}
+
+.halfGraphic {
+  grid-column-start: 1;
+  grid-column-end: span 1;
+  align-self: center;
+}
+
+.halfGraphicRight{
+  grid-column-start: 2;
+  grid-column-end: span 1;
+}
+
+.textBeneathImage {
+  grid-row: 4;
+  width: 80%;
+  margin: 0;
+}
+
 /* mobile media query */
 @media only screen and (max-width: 915px) {
 

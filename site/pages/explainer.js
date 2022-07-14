@@ -1,4 +1,5 @@
 import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import styles from '../styles/Explainer.module.css';
 import React, {useState, useEffect, useRef} from "react";
 import Web3Modal from "web3modal";
@@ -108,6 +109,50 @@ export default function Explainer() {
         <div className={styles.infoTextHeading}>
             👇
         </div>
+
+        <section className={styles.explanation}>
+          {/* Lender */}
+          <div className={styles.thirdsGrid}>
+            <div className={styles.twoThirds}>
+              If you&apos;ve got something that someone wants to borrow...<br/><br/>
+              You&apos;re a <span className={styles.green}>lender</span>.
+            </div>
+            <img
+              src="./give_dotted.png"
+              className={styles.graphicRight}
+            />
+          </div>
+
+          {/* Charges */}
+          <div className={styles.thirdsGrid}>
+            <div className={styles.wholeRow}>
+              The <span className={styles.green}>lender</span> decides:
+            </div>
+            <img
+              src="./item_value.png"
+              className={styles.halfGraphic}
+            />
+
+            <img
+              src="./borrow_fee.png"
+              className={styles.halfGraphicRight}
+            />
+            <p className={styles.textBeneathImage}>how much the item is worth</p>
+            <p className={styles.textBeneathImage}>how much the <span className={styles.orange}>borrower</span> has to pay them</p>
+          </div>
+
+          {/* Borrower initial steps */}
+          <div className={styles.thirdsGrid}>
+            <div className={styles.twoThirds}>
+              If someone decides they want to borrow your item, they&apos;re a <span className={styles.orange}>borrower</span>.
+            </div>
+            <img
+              src="./stall_img.png"
+              className={styles.graphicRight}
+            />
+          </div>
+        </section>
+        <Footer />
       </>
 
     );
