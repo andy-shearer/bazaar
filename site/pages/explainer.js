@@ -151,8 +151,11 @@ export default function Explainer() {
               Can someone borrow from you?<br/><br/>
               <Link
                 href="/#borrowRequests"
-                className={styles.redirectLink}
-              > What do people want to borrow?</Link>
+              >
+                <span className={styles.redirectLink}>
+                  What do people want to borrow?
+                </span>
+              </Link>
             </div>
             <img
               src="./community.png"

@@ -106,6 +106,7 @@
 .redirectLink {
   color: rgba(7, 105, 252, 1);
   font-size: 2vw;
+  cursor: pointer;
 }
 
 .redirectLink:hover{
