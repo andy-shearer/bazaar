@@ -78,15 +78,15 @@ async function main() {
   let agreementCount = 0;
 
   // Create lend agreement for 48 hours between lender and borrower
-  const fee = ethers.utils.parseEther('0.04');
-  const collateral = ethers.utils.parseEther('0.1');
+  const fee = ethers.utils.parseEther('0.04');          // The fee that the lender gets to keep
+  const collateral = ethers.utils.parseEther('0.1');    // The value of the item being lent which is staked by the borrower
   await createNewAgreement(lender.address, borrower.address, 48, fee, collateral, deployedContract, agreementCount);
 
   // Set approval for the first lend agreement
   await approveLendAgreement(lender, deployedContract, 1);
 
   // Borrower sends the funds for the lend agreement
-  await fundLendAgreement(borrower, deployedContract, 1, 0.14);
+  await fundLendAgreement(borrower, deployedContract, 1, 0.14); // fee + collateral = 0.14
 
   console.log("\nNew account balances:");
   await getBalances(borrower, lender);
