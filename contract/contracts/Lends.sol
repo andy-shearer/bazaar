@@ -25,7 +25,7 @@ contract Lends is Ownable, Pausable {
         uint256 remainingFee; // tracks the fee that is stored in the contract
     }
 
-    event LendCreation(address lender, address borrower, uint256 borrowDur);
+    event LendCreation(uint256 id, address lender, address borrower, uint256 borrowDur);
     event LendStarted(uint256 id, address lender, address borrower, uint256 endDate);
     event FeeWithdraw(address claimant, uint256 amount);
     event CollateralWithdraw(address claimant, uint256 amount);
@@ -62,7 +62,7 @@ contract Lends is Ownable, Pausable {
         lend.borrowDur = _dur;
         lend.borrowFee = _fee;
         lend.collateral = _collateral;
-        emit LendCreation(_lender, _borrower, _dur);
+        emit LendCreation(newLendId, _lender, _borrower, _dur);
     }
 
     function setLendAgreementApproval(uint256 _lendId, bool _state)
