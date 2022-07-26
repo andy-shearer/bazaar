@@ -27,12 +27,12 @@ export default function Nav(props) {
             />
           </Link>
 
-          <Link href='/#about'>
-            <a className={classNames(styles.headerLink, styles.link1)}>About</a>
+          <Link href='/explainer'>
+            <a className={classNames(styles.headerLink, styles.link1)}>How It Works</a>
           </Link>
 
-          <Link href='/explainer'>
-            <a className={classNames(styles.headerLink, styles.link2)}>How It Works</a>
+          <Link href='/bookshelf'>
+            <a className={classNames(styles.headerLink, styles.link2)}>Bookshelf <span className={styles.newRainbow}>(NEW!)</span></a>
           </Link>
 
           <Link href="/#borrowRequests">
