@@ -69,8 +69,9 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: rainbow_animation 10s ease-in-out infinite;
+  animation: rainbow_animation 8s ease-in-out infinite;
   background-size: 400% 100%;
+  font-size: .8em;
 }
 
 @keyframes rainbow_animation {

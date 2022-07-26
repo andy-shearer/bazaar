@@ -131,7 +131,7 @@ export default function Home({ posts }) {
           ) : (
           <>
             <h2 className={styles.requestHeading}>Most Recent Requests :</h2>
-            <div className={styles.borrowRequestContainer}>
+            <div>
               {borrowElements}
             </div>
           </>
