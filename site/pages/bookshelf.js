@@ -73,8 +73,8 @@ export default function Bookshelf({ books }) {
     /*==================================================================
      * Actual component bits
      *=================================================================*/
-    const borrowableBooks = books?
-      .filter(book => book.address !== walletConnected)
+    const borrowableBooks = books
+      ?.filter(book => book.address !== walletConnected)
       .map((book, i) => (
         <BookInfo book={book} key={i} user={walletConnected} />
     ));
