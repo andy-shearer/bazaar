@@ -176,6 +176,7 @@ export default function AddRequest() {
                             placeholder="Need to connect wallet!"
                             title="Not editable"
                             disabled={true}
+                            className={styles.disabledFormItem}
                         />
                     </div>
 

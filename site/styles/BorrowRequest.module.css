@@ -19,6 +19,12 @@
     text-align: center;
 }
 
+.disabledFormItem {
+    border: 0px solid;
+    background: whitesmoke;
+    width: 30%;
+}
+
 .formItem select {
     width: 20%;
     padding: 10px 10px;
