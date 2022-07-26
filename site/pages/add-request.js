@@ -71,6 +71,7 @@ export default function AddRequest() {
     //
 
     const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
     const [duration, setDuration] = useState('');
     const [type, setType] = useState('book');
     const [error, setError] = useState('');
@@ -84,7 +85,9 @@ export default function AddRequest() {
         setMessage('');
 
         // fields check
-        if (!title || !duration || !type) return setError('All fields are required');
+        if (!title || !duration || !type || (type==="book" && !author)) {
+          return setError('All fields are required');
+        }
 
         if (!walletConnected) return setError("Wallet is not connected!");
 
@@ -95,12 +98,17 @@ export default function AddRequest() {
             type: type,
             address: walletConnected,
             createdAt: new Date().toISOString(),
-        };
+        }
+
+        if(type === "book") {
+          request.author = author;
+        }
+
         // save the post
         let response = await fetch('/api/requests', {
             method: 'POST',
             body: JSON.stringify(request),
-        });
+        })
 
         // get the data
         let data = await response.json();
@@ -108,6 +116,7 @@ export default function AddRequest() {
         if (data.success) {
             // reset the fields
             setTitle('');
+            setAuthor('');
             setDuration('');
             // set the message
             return setMessage(data.message);
@@ -144,6 +153,20 @@ export default function AddRequest() {
                             placeholder="I'd like to borrow..."
                         />
                     </div>
+
+                    {type === "book" &&
+                      <div className={styles.formItem}>
+                          <label>Author</label>
+                          <input
+                              type="text"
+                              name="author"
+                              onChange={(e) => setAuthor(e.target.value)}
+                              value={author}
+                              placeholder="Name of Author"
+                          />
+                      </div>
+                    }
+
                     <div className={styles.formItem}>
                         <label>Duration</label>
                         <input

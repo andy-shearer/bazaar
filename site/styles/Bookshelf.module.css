@@ -23,16 +23,30 @@
 
 .infoTextSubHeading {
   font-weight: 600;
-  font-size: 4vw;
+  font-size: 2em;
+  text-align: center;
+}
+
+.infoTextParagraph {
+  font-weight: 400;
+  font-size: 1em;
   text-align: center;
 }
 
 .addButton {
   text-align: center;
-  align-content: center;
-  display:flex;
-  align-self: center;
-  justify-content: center;
+  width: 1.5em;
+  font-size: 2em;
+  padding: 5px;
+  display: grid;
+  margin: auto;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.addButton:hover {
+  cursor: pointer;
+  background: lightblue;
 }
 
 /* mobile media query */

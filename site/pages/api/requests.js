@@ -40,6 +40,7 @@ async function addRequest(req, res) {
     const collection = body.type === "book" ? "book_requests" : "borrow_requests";
     if(body.type === "book") {
       body.request = true;
+      body.author = sanitize(body.author);
     }
 
     try {
