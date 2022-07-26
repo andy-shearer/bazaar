@@ -2,7 +2,6 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import BookInfo from '../components/BookInfo';
 import Link from 'next/link';
-import Image from 'next/Image';
 import styles from '../styles/Bookshelf.module.css';
 import {useState, useRef, useEffect} from "react";
 import Web3Modal from "web3modal";
