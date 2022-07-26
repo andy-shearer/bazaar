@@ -22,7 +22,7 @@
 .header {
   margin: 20px;
   display: grid;
-  column-gap: 40px;
+  column-gap: 35px;
   row-gap: 20px;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@
   }
 }
 /* Media query for mobile/low-width layout */
-@media only screen and (max-width: 915px) {
+@media only screen and (max-width: 1115px) {
     .link1 {
       grid-row: 2;
     }
@@ -108,7 +108,7 @@
 }
 
 /* Media query for desktop layout */
-@media only screen and (min-width: 915px) {
+@media only screen and (min-width: 1115px) {
   .logo {
     grid-column: 1 / 2 ;
   }

@@ -104,43 +104,45 @@ export default function Bookshelf({ books }) {
           </h2>
         </section>
 
-        <section
-          id="booksToBorrow"
-        >
-          <div className={styles.paddedContainer}>
-              {borrowableBooks.length === 0 ? (
+        <section className={styles.bookshelfContainer}>
+          <section
+            id="booksToBorrow"
+          >
+            <div className={styles.paddedContainer}>
+                {borrowableBooks.length === 0 ? (
+                    <h2 className={styles.infoTextSubHeading}>
+                        No books to borrow ☹️
+                    </h2>
+                ) : (
+                <>
+                  <h2 className={styles.infoTextSubHeading}>Books I can borrow:</h2>
+                  <div>
+                    {borrowableBooks}
+                  </div>
+                </>
+                )}
+            </div>
+          </section>
+
+          <section
+            id="booksToLend"
+          >
+            <div className={styles.paddedContainer}>
+              {myBooks.length === 0 ? (
                   <h2 className={styles.infoTextSubHeading}>
-                      There are no books available to borrow ☹️
+                    I&apos;m not lending any books 😔
                   </h2>
               ) : (
               <>
-                <h2 className={styles.infoTextSubHeading}>Books I can borrow:</h2>
+                <h2 className={styles.infoTextSubHeading}>Books I can lend:</h2>
                 <div>
-                  {borrowableBooks}
+                  {myBooks}
                 </div>
               </>
               )}
-          </div>
-        </section>
+            </div>
 
-        <section
-          id="booksToLend"
-        >
-          <div className={styles.paddedContainer}>
-            {myBooks.length === 0 ? (
-                <h2 className={styles.infoTextSubHeading}>
-                  I&apos;m not lending any books 😔
-                </h2>
-            ) : (
-            <>
-              <h2 className={styles.infoTextSubHeading}>Books I can lend:</h2>
-              <div>
-                {myBooks}
-              </div>
-            </>
-            )}
-          </div>
-
+          </section>
         </section>
 
         <Footer />

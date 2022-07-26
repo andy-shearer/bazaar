@@ -119,7 +119,7 @@
   margin-bottom: 3vh;
 }
 
-@media only screen and (max-width: 915px) {
+@media only screen and (max-width: 1115px) {
   .infoTextSub {
     font-size: 3vw;
   }
@@ -154,7 +154,7 @@
   }
 }
 
-@media only screen and (min-width: 915px) {
+@media only screen and (min-width: 1115px) {
   .infoTextSub {
     font-size: 2vw;
   }
