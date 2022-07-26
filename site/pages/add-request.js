@@ -72,6 +72,7 @@ export default function AddRequest() {
 
     const [title, setTitle] = useState('');
     const [duration, setDuration] = useState('');
+    const [type, setType] = useState('book');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
@@ -83,7 +84,7 @@ export default function AddRequest() {
         setMessage('');
 
         // fields check
-        if (!title || !duration) return setError('All fields are required');
+        if (!title || !duration || !type) return setError('All fields are required');
 
         if (!walletConnected) return setError("Wallet is not connected!");
 
@@ -91,6 +92,7 @@ export default function AddRequest() {
         let request = {
             title: title,
             duration: duration,
+            type: type,
             address: walletConnected,
             createdAt: new Date().toISOString(),
         };
@@ -151,6 +153,19 @@ export default function AddRequest() {
                             value={duration}
                             placeholder="And I'll give it back after..."
                         />
+                    </div>
+                    <div className={styles.formItem}>
+                        <label htmlFor="types">Type</label>
+                        <select
+                          name="types"
+                          id="types"
+                          value={type}
+                          onChange={(e) => setType(e.target.value)}
+                        >
+                          <option value="book">Book</option>
+                          <option value="item">Item</option>
+                          <option value="other">Other</option>
+                        </select>
                     </div>
                     <div className={styles.formItem}>
                         <label>Borrower Address</label>

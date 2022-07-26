@@ -13,10 +13,17 @@
 }
 
 .formItem input[type='text'] {
-    display: block;
-    width: 100%;
+    width: 95%;
     padding: 10px 10px;
     height: 60px;
+    text-align: center;
+}
+
+.formItem select {
+    width: 20%;
+    padding: 10px 10px;
+    height: 60px;
+    text-align: center;
 }
 
 .error {

@@ -30,17 +30,23 @@ async function getRequests(req,res){
 
 async function addRequest(req, res) {
     // Sanitize the input to protect against XSS
-    let {title, duration, address} = JSON.parse(req.body);
+    let body = JSON.parse(req.body);
 
-    req.title = sanitize(title);
-    req.duration = sanitize(duration);
-    req.address = sanitize(address);
+    body.title = sanitize(body.title);
+    body.duration = sanitize(body.duration);
+    body.address = sanitize(body.address);
+    body.type = sanitize(body.type);
+
+    const collection = body.type === "book" ? "book_requests" : "borrow_requests";
+    if(body.type === "book") {
+      body.request = true;
+    }
 
     try {
         // connect to the database
         let { db } = await connectToDatabase();
         // add the post
-        await db.collection('borrow_requests').insertOne(JSON.parse(req.body));
+        await db.collection(collection).insertOne(body);
         // return a message
         return res.json({
             message: 'Request added successfully',
@@ -82,7 +88,7 @@ function sanitize(dirty) {
       allowedTags: [],
       allowedAttributes: {}
     });
-    console.log(`Sanitized ${dirty} into ${clean}`);
+//    console.log(`Sanitized ${dirty} into ${clean}`);
     return clean;
   }
 }

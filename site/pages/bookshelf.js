@@ -80,8 +80,14 @@ export default function Bookshelf({ books }) {
 
     //console.log("Borrowable books: ", borrowableBooks);
 
+    const bookBorrowRequests = books
+      ?.filter(book => (book.address === walletConnected && book.request))
+      .map((book, i) => (
+        <BookInfo book={book} key={i} user={walletConnected} />
+    ));
+
     const myBooks = books
-      ?.filter(book => book.address === walletConnected)
+      ?.filter(book => book.address === walletConnected && !book.request)
       .map((book, i) => (
         <BookInfo book={book} key={i} user={walletConnected} />
     ));
@@ -115,12 +121,27 @@ export default function Bookshelf({ books }) {
                     </h2>
                 ) : (
                 <>
-                  <h2 className={styles.infoTextSubHeading}>Books I can borrow:</h2>
+                  <h2 className={styles.infoTextSubHeading}>Books available to borrow:</h2>
                   <div>
                     {borrowableBooks}
                   </div>
                 </>
                 )}
+            </div>
+          </section>
+
+          <section
+            id="myBorrowRequests"
+          >
+            <div className={styles.paddedContainer}>
+              {bookBorrowRequests.length > 0 &&
+                <>
+                  <h2 className={styles.infoTextSubHeading}>Books I want to borrow:</h2>
+                  <div>
+                    {bookBorrowRequests}
+                  </div>
+                </>
+              }
             </div>
           </section>
 
