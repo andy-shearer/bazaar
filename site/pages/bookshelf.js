@@ -134,14 +134,26 @@ export default function Bookshelf({ books }) {
             id="myBorrowRequests"
           >
             <div className={styles.paddedContainer}>
-              {bookBorrowRequests.length > 0 &&
-                <>
-                  <h2 className={styles.infoTextSubHeading}>Books I want to borrow:</h2>
+              <h2 className={styles.infoTextSubHeading}>Books I want to borrow:</h2>
+              {bookBorrowRequests.length > 0 ?
+                (
                   <div>
                     {bookBorrowRequests}
                   </div>
-                </>
+                )
+                :
+                (
+                  <h2 className={styles.infoTextSubHeading}>
+                    Click &apos;+&apos; to add a book
+                  </h2>
+                )
               }
+
+              <Link href="/add-request">
+                <button
+                  className={styles.addButton}
+                >+</button>
+              </Link>
             </div>
           </section>
 

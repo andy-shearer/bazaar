@@ -27,6 +27,14 @@
   text-align: center;
 }
 
+.addButton {
+  text-align: center;
+  align-content: center;
+  display:flex;
+  align-self: center;
+  justify-content: center;
+}
+
 /* mobile media query */
 @media only screen and (max-width: 1115px) {
   .mainGraphic {
