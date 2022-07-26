@@ -115,18 +115,14 @@ export default function Bookshelf({ books }) {
             id="booksToBorrow"
           >
             <div className={styles.paddedContainer}>
-                {borrowableBooks.length === 0 ? (
-                    <h2 className={styles.infoTextSubHeading}>
-                        No books to borrow ☹️
-                    </h2>
-                ) : (
-                <>
-                  <h2 className={styles.infoTextSubHeading}>Books available to borrow</h2>
-                  <div>
-                    {borrowableBooks}
-                  </div>
-                </>
-                )}
+                {borrowableBooks.length > 0 &&
+                  <>
+                    <h2 className={styles.infoTextSubHeading}>Books that people want to borrow</h2>
+                    <div>
+                      {borrowableBooks}
+                    </div>
+                  </>
+                }
             </div>
           </section>
 
@@ -152,7 +148,7 @@ export default function Bookshelf({ books }) {
             </section>
           }
 
-          { walletConnected &&
+          {/* walletConnected &&
             <section
               id="booksToLend"
             >
@@ -172,7 +168,7 @@ export default function Bookshelf({ books }) {
                 </Link>
               </div>
 
-            </section>
+            </section>*/
           }
         </section>
 
