@@ -72,6 +72,10 @@
   animation: rainbow_animation 8s ease-in-out infinite;
   background-size: 400% 100%;
   font-size: .8em;
+  border: 1px solid orange;
+  border-radius: 30px;
+  padding: 5px;
+  margin-left: 2px;
 }
 
 @keyframes rainbow_animation {

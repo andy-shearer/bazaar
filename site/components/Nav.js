@@ -32,7 +32,7 @@ export default function Nav(props) {
           </Link>
 
           <Link href='/bookshelf'>
-            <a className={classNames(styles.headerLink, styles.link2)}>Bookshelf <span className={styles.newRainbow}>(NEW)</span></a>
+            <a className={classNames(styles.headerLink, styles.link2)}>Bookshelf <span className={styles.newRainbow}>NEW</span></a>
           </Link>
 
           <Link href="/#borrowRequests">
