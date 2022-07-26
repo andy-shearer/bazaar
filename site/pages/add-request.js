@@ -1,4 +1,5 @@
 import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import styles from '../styles/BorrowRequest.module.css';
 import {useState, useEffect, useRef} from "react";
 import Web3Modal from "web3modal";
@@ -208,6 +209,8 @@ export default function AddRequest() {
                     </div>
                 </form>
             </div>
+
+          <Footer />
         </div>
     );
 }

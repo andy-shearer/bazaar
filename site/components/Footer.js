@@ -31,7 +31,6 @@ export default function Footer() {
           />
           &nbsp;devshez
         </a>
-        <br />
         <a href="https://twitter.com/TrustlessBazaar" target="_blank" rel="noopener noreferrer">
           <Image
             src="/twitter.svg"

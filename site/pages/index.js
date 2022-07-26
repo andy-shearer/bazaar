@@ -127,46 +127,16 @@ export default function Home({ posts }) {
 
       <div id="borrowRequests" className={styles.container}>
           {posts.length === 0 ? (
-              <h2 className={styles.requestHeading}>No borrow requests :(</h2>
+              <h2 className={styles.requestHeading}>No borrow requests 😭</h2>
           ) : (
           <>
-            <h2 className={styles.requestHeading}>Most Recent Requests :</h2>
+            <h2 className={styles.requestHeading}>Most Recent Requests</h2>
             <div>
               {borrowElements}
             </div>
           </>
           )}
       </div>
-
-      {/*
-      <div className={styles.infoContainer}>
-        <h2 className={styles.infoHeader}>
-
-        </h2>
-        <p className={styles.infoText}>
-
-        </p>
-        <img
-          src="/market_3.png"
-          alt="Market stall vendor selling various items"
-          title="Bazaar vector created by pikisuperstar - www.freepik.com"
-          className={styles.homepageGraphic}
-        />
-      </div>
-
-      <main className={styles.main}>
-        <h2 className={styles.title}>
-          Borrow Requests
-        </h2>
-
-        <BorrowRequests />
-
-        <h2 className={styles.title}>
-          Available to Borrow
-        </h2>
-
-        <AvailableBorrows />
-      </main>*/}
 
       <Footer />
     </div>
