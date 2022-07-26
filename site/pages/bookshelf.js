@@ -130,46 +130,50 @@ export default function Bookshelf({ books }) {
             </div>
           </section>
 
-          <section
-            id="myBorrowRequests"
-          >
-            <div className={styles.paddedContainer}>
-              <h2 className={styles.infoTextSubHeading}>Books I want to borrow</h2>
-              {bookBorrowRequests.length > 0 &&
-                <div>
-                  {bookBorrowRequests}
-                </div>
-              }
+          { walletConnected &&
+            <section
+              id="myBorrowRequests"
+            >
+              <div className={styles.paddedContainer}>
+                <h2 className={styles.infoTextSubHeading}>Books I want to borrow</h2>
+                {bookBorrowRequests.length > 0 &&
+                  <div>
+                    {bookBorrowRequests}
+                  </div>
+                }
 
-              <Link href="/add-request">
-                <button
-                  title="Request a book"
-                  className={styles.addButton}
-                >+</button>
-              </Link>
-            </div>
-          </section>
+                <Link href="/add-request">
+                  <button
+                    title="Request a book"
+                    className={styles.addButton}
+                  >+</button>
+                </Link>
+              </div>
+            </section>
+          }
 
-          <section
-            id="booksToLend"
-          >
-            <div className={styles.paddedContainer}>
-              <h2 className={styles.infoTextSubHeading}>Books I can lend</h2>
-              {myBooks.length > 0 &&
-                <div>
-                  {myBooks}
-                </div>
-              }
+          { walletConnected &&
+            <section
+              id="booksToLend"
+            >
+              <div className={styles.paddedContainer}>
+                <h2 className={styles.infoTextSubHeading}>Books I can lend</h2>
+                {myBooks.length > 0 &&
+                  <div>
+                    {myBooks}
+                  </div>
+                }
 
-              <Link href="/add-request">
-                <button
-                  title="Lend a book"
-                  className={styles.addButton}
-                >+</button>
-              </Link>
-            </div>
+                <Link href="/add-request">
+                  <button
+                    title="Lend a book"
+                    className={styles.addButton}
+                  >+</button>
+                </Link>
+              </div>
 
-          </section>
+            </section>
+          }
         </section>
 
         <Footer />
