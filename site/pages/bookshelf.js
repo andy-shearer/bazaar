@@ -78,14 +78,15 @@ export default function Bookshelf({ books }) {
         <BookInfo book={book} key={i} user={walletConnected} />
     ));
 
-    console.log("Borrowable books: ", borrowableBooks);
+    //console.log("Borrowable books: ", borrowableBooks);
 
-    const myBooks = books?.map((book, i) => (
-        book.address === walletConnected &&
+    const myBooks = books
+      ?.filter(book => book.address === walletConnected)
+      .map((book, i) => (
         <BookInfo book={book} key={i} user={walletConnected} />
     ));
 
-    console.log("Lendable books: ", myBooks);
+    //console.log("Lendable books: ", myBooks);
 
     return (
       <>
@@ -109,11 +110,11 @@ export default function Bookshelf({ books }) {
           <div className={styles.paddedContainer}>
               {borrowableBooks.length === 0 ? (
                   <h2 className={styles.infoTextSubHeading}>
-                      There are no books available to borrow :(
+                      There are no books available to borrow ☹️
                   </h2>
               ) : (
               <>
-                <h2 className={styles.infoTextSubHeading}>Books I can borrow :</h2>
+                <h2 className={styles.infoTextSubHeading}>Books I can borrow:</h2>
                 <div>
                   {borrowableBooks}
                 </div>
@@ -128,11 +129,11 @@ export default function Bookshelf({ books }) {
           <div className={styles.paddedContainer}>
             {myBooks.length === 0 ? (
                 <h2 className={styles.infoTextSubHeading}>
-                  I have no books to lend :(
+                  I&apos;m not lending any books 😔
                 </h2>
             ) : (
             <>
-              <h2 className={styles.infoTextSubHeading}>Books I can lend to someone 👇</h2>
+              <h2 className={styles.infoTextSubHeading}>Books I can lend:</h2>
               <div>
                 {myBooks}
               </div>
