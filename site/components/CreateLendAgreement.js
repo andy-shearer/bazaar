@@ -134,7 +134,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
           </table>
 
           <div id="buttonContainer" className={styles.buttonContainer}>
-            <button onSubmit={handleSubmit} className={styles.button}>Create</button>
+            <button onClick={handleSubmit} className={styles.button}>Create</button>
             <button className={styles.button} onClick={closePopup}>Cancel</button>
           </div>
         </div>
