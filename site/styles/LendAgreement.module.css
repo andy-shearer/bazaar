@@ -1,0 +1,116 @@
+.popup {
+  position: fixed;
+  height: 75%;
+  width: 75%;
+  transform: translate(20%, 20%);
+  /*background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px); */
+  background: whitesmoke;
+  box-shadow: 5px 10px lightblue;
+  border: 1px solid grey;
+  border-radius: 20px;
+  box-shadow: 5px 5px lightblue;
+}
+
+.popupContent {
+  position: relative;
+  z-index:-1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+  margin: 2vw;
+  height: 85%;
+  overflow: scroll;
+}
+
+.closeButton {
+  position: absolute;
+  float: right;
+  top: 2vw;
+  right: 2vw;
+  font-size: 2em;
+  font-weight: 600;
+  color: rgba(64, 146, 198, 0.8);
+  border: none;
+  background: none;
+}
+
+.closeButton:hover {
+  cursor: pointer;
+  font-weight: 800;
+  color: red;
+}
+
+.title {
+  margin: 20px;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0 100px;
+}
+
+.table {
+  width: 75%;
+  border: 1px solid;
+  align-self: center;
+  padding: 20px;
+}
+
+.tableRow {
+}
+
+.tableRow input {
+  text-align: center;
+  width: 300px;
+  border-radius: 5px;
+}
+
+.orange {
+  color: rgba(237, 94, 13, 1);
+  font-weight: 600;
+}
+
+.error {
+    color: red;
+}
+
+.message {
+    color: green;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 50px;
+  gap: 4vw;
+}
+
+.button {
+  margin: 20px;
+  padding: 15px 20px;
+  background: rgba(64, 146, 198);
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.button:hover {
+  background: rgba(64, 146, 198, 0.8);
+  cursor: pointer;
+}
+
+/* mobile media query */
+@media only screen and (max-width: 1115px) {
+  .popup {
+    height: 85%;
+     transform: translate(17%, 10%);
+  }
+}

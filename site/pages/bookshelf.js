@@ -1,5 +1,5 @@
 import Nav from '../components/Nav';
-import CreateAgreement from '../components/CreateAgreement';
+import CreateLendAgreement from '../components/CreateLendAgreement';
 import Footer from '../components/Footer';
 import BookInfo from '../components/BookInfo';
 import Link from 'next/link';
@@ -103,7 +103,7 @@ export default function Bookshelf({ books }) {
     return (
       <>
         { popup &&
-          <CreateAgreement book={popup} closePopup={() => setPopup("")} />
+          <CreateLendAgreement book={popup} closePopup={() => setPopup("")} wallet={walletConnected} />
         }
 
         <Nav wallet={walletConnected} onClickConnect={connectWallet} />

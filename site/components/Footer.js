@@ -19,6 +19,7 @@ export default function Footer() {
             width="20px"
             height="20px"
             alt="Icons 8 logo"
+            className={styles.icon}
           />
           &nbsp;Explore ICONS8
         </a>
@@ -28,6 +29,7 @@ export default function Footer() {
             width="20px"
             height="20px"
             alt="Twitter logo"
+            className={styles.icon}
           />
           &nbsp;devshez
         </a>
@@ -37,6 +39,7 @@ export default function Footer() {
             width="20px"
             height="20px"
             alt="Twitter logo"
+            className={styles.icon}
           />
           &nbsp;TrustlessBazaar
         </a>
