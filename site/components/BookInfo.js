@@ -11,16 +11,18 @@ export default function BookInfo({ book, user }) {
     return (
         <div className={styles.requestContainer}>
             <h3 className={styles.requestTitle}>{book.title}</h3>
-            {
-              !myBook &&
-              <button className={styles.lendButton}>
-                I have this book!
-              </button>
-            }
             <p>Author: {book.author}</p>
             <p>Duration: {book.duration}</p>
             <p suppressHydrationWarning={true}>Added on: {new Date(book.createdAt).toLocaleDateString()}</p>
             <p>Lender Address: {slicedAddress}</p>
+
+            {
+              !myBook &&
+              <button className={styles.lendButton} title={`Lend this book to ${slicedAddress}`}>
+                I have this book!
+              </button>
+            }
+
 
             {
             /*<button type="button" >
