@@ -182,6 +182,7 @@ export default function AddRequest() {
                         <label htmlFor="types">Type</label>
                         <select
                           name="types"
+                          className={styles.typeDropdown}
                           id="types"
                           value={type}
                           onChange={(e) => setType(e.target.value)}

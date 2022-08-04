@@ -1,4 +1,5 @@
 import Nav from '../components/Nav';
+import CreateAgreement from '../components/CreateAgreement';
 import Footer from '../components/Footer';
 import BookInfo from '../components/BookInfo';
 import Link from 'next/link';
@@ -72,10 +73,15 @@ export default function Bookshelf({ books }) {
     /*==================================================================
      * Actual component bits
      *=================================================================*/
+    const [ popup, setPopup ] = useState("");
+    const createLend = (book) => {
+      setPopup(book);
+    }
+
     const borrowableBooks = books
       ?.filter(book => book.address !== walletConnected)
       .map((book, i) => (
-        <BookInfo book={book} key={i} user={walletConnected} />
+        <BookInfo book={book} key={i} user={walletConnected} onClickLend={createLend} wallet={walletConnected} />
     ));
 
     //console.log("Borrowable books: ", borrowableBooks);
@@ -83,19 +89,23 @@ export default function Bookshelf({ books }) {
     const bookBorrowRequests = books
       ?.filter(book => (book.address === walletConnected && book.request))
       .map((book, i) => (
-        <BookInfo book={book} key={i} user={walletConnected} />
+        <BookInfo book={book} key={i} user={walletConnected} onClickLend={createLend}/>
     ));
 
-    const myBooks = books
-      ?.filter(book => book.address === walletConnected && !book.request)
-      .map((book, i) => (
-        <BookInfo book={book} key={i} user={walletConnected} />
-    ));
+//    const myBooks = books
+//      ?.filter(book => book.address === walletConnected && !book.request)
+//      .map((book, i) => (
+//        <BookInfo book={book} key={i} user={walletConnected} />
+//    ));
 
     //console.log("Lendable books: ", myBooks);
 
     return (
       <>
+        { popup &&
+          <CreateAgreement book={popup} closePopup={() => setPopup("")} />
+        }
+
         <Nav wallet={walletConnected} onClickConnect={connectWallet} />
         <section className={styles.alignmentContainer}>
           <h1 className={styles.infoTextHeading}>
