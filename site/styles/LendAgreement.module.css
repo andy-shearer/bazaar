@@ -61,6 +61,7 @@
   border: 1px solid;
   align-self: center;
   padding: 20px;
+  margin-bottom: 15px;
 }
 
 .tableRow input {
@@ -102,6 +103,17 @@
 .button:hover {
   background: rgba(64, 146, 198, 0.8);
   cursor: pointer;
+}
+
+.loading {
+  align-self: center;
+  align-items: center;
+  display: flex;
+}
+
+.loading img {
+  max-width: 32px;
+  max-height: 32px;
 }
 
 /* mobile media query */

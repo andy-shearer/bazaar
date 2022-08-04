@@ -8,6 +8,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [fee, setFee] = useState();
+  const [loading, setLoading] = useState(false);
   const [collateral, setCollateral] = useState();
   const buttonText = message ? "Cancel" : "Close";
 
@@ -23,6 +24,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
 
     if(!errorMsg || (errorMsg === error)) { // If we have no errors, or the user has ignored our error
       const {res, e} = createLendAgreement();
+      setLoading(false);
       if(e) {
         errorMsg = e;
       }
@@ -32,135 +34,129 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
   }
 
   const createLendAgreement = () => {
-    // TODO
+    setLoading(true);
+    // Lender,   Borrower,       Duration,        Fee,   Collateral
+    // wallet,   book.address,   book.duration,   fee,   collateral
     return {e: "Not yet implemented"};
   }
 
   return (
-      <section id="popup" className={styles.popup}>
-        <button
-          id="close"
-          className={styles.closeButton}
-          onClick={closePopup}
-          title="Close"
-        >
-          X
-        </button>
-        <div className={styles.popupContent}>
-          <span className={styles.title}>Create Lend Agreement</span>
-          <span className={styles.subtitle}>
-            You&apos;ve got something that somebody wants to borrow - you&apos;re a <span className={styles.orange}>lender</span>! Configure the lend agreement below to set your terms for lending this item.
-          </span>
+    <section id="popup" className={styles.popup}>
+      <button
+        id="close"
+        className={styles.closeButton}
+        onClick={closePopup}
+        title="Close"
+      >
+        X
+      </button>
+      <div className={styles.popupContent}>
+        <span className={styles.title}>Create Lend Agreement</span>
+        <span className={styles.subtitle}>
+          You&apos;ve got something that somebody wants to borrow - you&apos;re a <span className={styles.orange}>lender</span>! Configure the lend agreement below to set your terms for lending this item.
+        </span>
 
-          <table className={styles.table}>
-              <tr>
-                  <td>Book Title:</td>
-                  <td>
-                    {book.title}
+        <table className={styles.table}>
+          <tbody>
+            <tr className={styles.tableRow}>
+              <td>Book Title:</td>
+              <td>
+                {book.title}
 
-                  </td>
-              </tr>
+                </td>
+            </tr>
 
-              <tr>
-                  <td>Author:</td>
-                  <td>
-                    {book.author}
-                  </td>
-              </tr>
+            <tr className={styles.tableRow}>
+              <td>Author:</td>
+              <td>
+                {book.author}
+              </td>
+            </tr>
 
-              <tr>
-                  <td>Borrow Duration:</td>
-                  <td>
-                    {book.duration}
-                  </td>
-              </tr>
-              <br />
-              <tr>
-                  <td>Borrower Address:</td>
-                  <td>
-                    {slicedBorrowerAddress}
-                  </td>
-              </tr>
+            <tr className={styles.tableRow}>
+              <td>Borrow Duration:</td>
+              <td>
+                {book.duration}
+              </td>
+            </tr>
 
-              <tr>
-                  <td>Lender Address:</td>
-                  <td>
-                    {slicedWalletAddress}
-                  </td>
-              </tr>
-              <br />
-              <tr>
-                  <td>Borrow Fee:</td>
-                  <td>
-                    <input
-                        type="text"
-                        name="fee"
-                        onChange={(e) => setFee(e.target.value)}
-                        value={fee}
-                        placeholder="Fee you will receive"
-                    />
-                    <span> ETH</span>
-                  </td>
-              </tr>
+            <tr><td><br/></td></tr>
 
-              <tr>
-                  <td>Item value:</td>
-                  <td>
-                    <input
-                        type="text"
-                        name="collateral"
-                        onChange={(e) => setCollateral(e.target.value)}
-                        value={collateral}
-                        placeholder="Amount borrower will stake"
-                    />
-                    <span> ETH</span>
-                  </td>
-              </tr>
+            <tr className={styles.tableRow}>
+              <td>Borrower Address:</td>
+              <td>
+                {slicedBorrowerAddress}
+              </td>
+            </tr>
 
+            <tr className={styles.tableRow}>
+              <td>Lender Address:</td>
+              <td>
+                {slicedWalletAddress}
+              </td>
+            </tr>
 
-              {/*
-              <div className={styles.formItem}>
-                  <label>Borrow Duration</label>
-                  <input
-                      type="text"
-                      name="duration"
-                      value={book.duration}
-                      title="Not editable"
-                      disabled={true}
-                      className={styles.disabledFormItem}
-                  />
-              </div>
-              <div className={styles.formItem}>
-                  <label>Borrower Address</label>
-                  <input
-                      type="text"
-                      name="address"
-                      value={slicedBorrowerAddress}
-                      title="Not editable"
-                      disabled={true}
-                      className={styles.disabledFormItem}
-                  />
-              </div>*/}
-          </table>
+            <tr><td><br/></td></tr>
 
-          {error &&
-              <div className={styles.formItem}>
-                  <h3 className={styles.error}>{error}</h3>
-              </div>
-          }
-          {message &&
-              <div className={styles.formItem}>
-                  <h3 className={styles.message}>{message}</h3>
-              </div>
-          }
-          
-          <div id="buttonContainer" className={styles.buttonContainer}>
-            { !message &&
-                <button onClick={handleSubmit} className={styles.button}>Create</button>
-            }
-            <button className={styles.button} onClick={closePopup}>{buttonText}</button>
+            <tr className={styles.tableRow}>
+              <td>Borrow Fee:</td>
+              <td>
+                <input
+                  type="text"
+                  name="fee"
+                  onChange={(e) => setFee(e.target.value)}
+                  value={fee}
+                  placeholder="Fee you will receive"
+                />
+                <span> ETH</span>
+              </td>
+            </tr>
+
+            <tr className={styles.tableRow}>
+              <td>Item value:</td>
+              <td>
+                <input
+                  type="text"
+                  name="collateral"
+                  onChange={(e) => setCollateral(e.target.value)}
+                  value={collateral}
+                  placeholder="Amount borrower must stake"
+                />
+                <span> ETH</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        {error &&
+          <div className={styles.formItem}>
+              <h3 className={styles.error}>{error}</h3>
           </div>
+        }
+        {message &&
+            <div className={styles.formItem}>
+                <h3 className={styles.message}>{message}</h3>
+            </div>
+        }
+        {loading &&
+          <div className={styles.loading} title="Waiting for blockchain transaction...">
+            <span>Loading...</span>
+            <img
+              src="/loading.gif"
+              alt="Loading spinner"
+              className={styles.loading}
+
+            />
+          </div>
+        }
+
+        <div id="buttonContainer" className={styles.buttonContainer}>
+          { !message && !loading &&
+              <button onClick={handleSubmit} className={styles.button}>Create</button>
+          }
+          <button className={styles.button} onClick={closePopup}>{buttonText}</button>
         </div>
-      </section>
+      </div>
+    </section>
   );
 }
