@@ -106,7 +106,8 @@ export default function Bookshelf({ books }) {
             className={styles.mainGraphic}
           />
           <h2 className={styles.infoTextSubHeading}>
-              Borrow a book from a stranger. Securely.
+              Borrow a book from a stranger. Securely.<br/>
+              Request a book, or offer to lend someone a requested book below 👇
           </h2>
         </section>
 
