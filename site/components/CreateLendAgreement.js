@@ -9,11 +9,31 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
   const [message, setMessage] = useState("");
   const [fee, setFee] = useState();
   const [collateral, setCollateral] = useState();
+  const buttonText = message ? "Cancel" : "Close";
 
   const handleSubmit = () => {
-    alert("TODO");
-//    setMessage("");
-//    setError("");
+    let errorMsg;
+    if(!fee || fee <= 0) {
+      errorMsg = "You are not going to receive any fee for lending this item.";
+    }
+
+    if(!collateral || collateral <= 0) {
+      errorMsg = `${errorMsg ? errorMsg : ""} You are advised to set an item value greater than 0 to protect against item damage or theft.`;
+    }
+
+    if(!errorMsg || (errorMsg === error)) { // If we have no errors, or the user has ignored our error
+      const {res, e} = createLendAgreement();
+      if(e) {
+        errorMsg = e;
+      }
+      setMessage(res);
+    }
+    setError(errorMsg);
+  }
+
+  const createLendAgreement = () => {
+    // TODO
+    return {e: "Not yet implemented"};
   }
 
   return (
@@ -32,18 +52,8 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
             You&apos;ve got something that somebody wants to borrow - you&apos;re a <span className={styles.orange}>lender</span>! Configure the lend agreement below to set your terms for lending this item.
           </span>
 
-          {error ? (
-              <div className={styles.formItem}>
-                  <h3 className={styles.error}>{error}</h3>
-              </div>
-          ) : null}
-          {message ? (
-              <div className={styles.formItem}>
-                  <h3 className={styles.message}>{message}</h3>
-              </div>
-          ) : null}
           <table className={styles.table}>
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Book Title:</td>
                   <td>
                     {book.title}
@@ -51,35 +61,35 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
                   </td>
               </tr>
 
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Author:</td>
                   <td>
                     {book.author}
                   </td>
               </tr>
 
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Borrow Duration:</td>
                   <td>
                     {book.duration}
                   </td>
               </tr>
               <br />
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Borrower Address:</td>
                   <td>
                     {slicedBorrowerAddress}
                   </td>
               </tr>
 
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Lender Address:</td>
                   <td>
                     {slicedWalletAddress}
                   </td>
               </tr>
               <br />
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Borrow Fee:</td>
                   <td>
                     <input
@@ -87,13 +97,13 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
                         name="fee"
                         onChange={(e) => setFee(e.target.value)}
                         value={fee}
-                        placeholder="Fee you receive"
+                        placeholder="Fee you will receive"
                     />
                     <span> ETH</span>
                   </td>
               </tr>
 
-              <tr className={styles.tableRow}>
+              <tr>
                   <td>Item value:</td>
                   <td>
                     <input
@@ -101,7 +111,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
                         name="collateral"
                         onChange={(e) => setCollateral(e.target.value)}
                         value={collateral}
-                        placeholder="Amount borrower has to stake"
+                        placeholder="Amount borrower will stake"
                     />
                     <span> ETH</span>
                   </td>
@@ -133,9 +143,22 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
               </div>*/}
           </table>
 
+          {error &&
+              <div className={styles.formItem}>
+                  <h3 className={styles.error}>{error}</h3>
+              </div>
+          }
+          {message &&
+              <div className={styles.formItem}>
+                  <h3 className={styles.message}>{message}</h3>
+              </div>
+          }
+          
           <div id="buttonContainer" className={styles.buttonContainer}>
-            <button onClick={handleSubmit} className={styles.button}>Create</button>
-            <button className={styles.button} onClick={closePopup}>Cancel</button>
+            { !message &&
+                <button onClick={handleSubmit} className={styles.button}>Create</button>
+            }
+            <button className={styles.button} onClick={closePopup}>{buttonText}</button>
           </div>
         </div>
       </section>

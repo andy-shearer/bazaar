@@ -22,7 +22,7 @@
   align-self: center;
   text-align: center;
   margin: 2vw;
-  height: 85%;
+  height: 90%;
   overflow: scroll;
 }
 
@@ -53,7 +53,7 @@
 .subtitle {
   font-size: 1.2em;
   font-weight: 500;
-  margin: 0 100px;
+  margin: 0 100px 20px 100px;
 }
 
 .table {
@@ -61,9 +61,6 @@
   border: 1px solid;
   align-self: center;
   padding: 20px;
-}
-
-.tableRow {
 }
 
 .tableRow input {
