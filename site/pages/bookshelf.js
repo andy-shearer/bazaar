@@ -103,7 +103,7 @@ export default function Bookshelf({ books }) {
     return (
       <>
         { popup &&
-          <CreateLendAgreement book={popup} closePopup={() => setPopup("")} wallet={walletConnected} />
+          <CreateLendAgreement book={popup} closePopup={() => setPopup("")} />
         }
 
         <Nav wallet={walletConnected} onClickConnect={connectWallet} />

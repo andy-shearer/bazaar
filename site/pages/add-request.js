@@ -90,12 +90,16 @@ export default function AddRequest() {
           return setError('All fields are required');
         }
 
+        if (duration.trim().search(/\D/i) != -1) {
+          return setError('Borrow duration must be number of days');
+        }
+
         if (!walletConnected) return setError("Wallet is not connected!");
 
         // post structure
         let request = {
             title: title,
-            duration: duration,
+            duration: duration.trim(),
             type: type,
             address: walletConnected,
             createdAt: new Date().toISOString(),
@@ -169,7 +173,7 @@ export default function AddRequest() {
                     }
 
                     <div className={styles.formItem}>
-                        <label>Duration</label>
+                        <label>Duration (days)</label>
                         <input
                             type="text"
                             name="duration"

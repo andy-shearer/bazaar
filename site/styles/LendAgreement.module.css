@@ -116,6 +116,11 @@
   max-height: 32px;
 }
 
+.convertButton {
+  cursor: pointer;
+  margin-left: 15px;
+}
+
 /* mobile media query */
 @media only screen and (max-width: 1115px) {
   .popup {

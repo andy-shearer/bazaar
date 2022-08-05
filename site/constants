@@ -1,0 +1,428 @@
+export const CONTRACT_ADDRESS = "0xEB077A5C5265ED625842f2E9552c8DE5B96d03BA";
+export const CONTRACT_ABI = [
+                                {
+                                  "inputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "constructor"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "claimant",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "amount",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "CollateralWithdraw",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "claimant",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "amount",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "FeeWithdraw",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "id",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "lender",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "borrower",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "borrowDur",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "LendCreation",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "id",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "lender",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "borrower",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": false,
+                                      "internalType": "uint256",
+                                      "name": "endDate",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "LendStarted",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": true,
+                                      "internalType": "address",
+                                      "name": "previousOwner",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "indexed": true,
+                                      "internalType": "address",
+                                      "name": "newOwner",
+                                      "type": "address"
+                                    }
+                                  ],
+                                  "name": "OwnershipTransferred",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "account",
+                                      "type": "address"
+                                    }
+                                  ],
+                                  "name": "Paused",
+                                  "type": "event"
+                                },
+                                {
+                                  "anonymous": false,
+                                  "inputs": [
+                                    {
+                                      "indexed": false,
+                                      "internalType": "address",
+                                      "name": "account",
+                                      "type": "address"
+                                    }
+                                  ],
+                                  "name": "Unpaused",
+                                  "type": "event"
+                                },
+                                {
+                                  "stateMutability": "payable",
+                                  "type": "fallback"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "agreementCount",
+                                  "outputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "stateMutability": "view",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_lendId",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_claimVal",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "claimFee",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "address",
+                                      "name": "_lender",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "internalType": "address",
+                                      "name": "_borrower",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_dur",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_fee",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_collateral",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "createLendAgreement",
+                                  "outputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "newLendId",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "lends",
+                                  "outputs": [
+                                    {
+                                      "internalType": "bool",
+                                      "name": "valid",
+                                      "type": "bool"
+                                    },
+                                    {
+                                      "internalType": "address",
+                                      "name": "lender",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "internalType": "address",
+                                      "name": "borrower",
+                                      "type": "address"
+                                    },
+                                    {
+                                      "internalType": "bool",
+                                      "name": "borrowerHasFunded",
+                                      "type": "bool"
+                                    },
+                                    {
+                                      "internalType": "bool",
+                                      "name": "lenderApproval",
+                                      "type": "bool"
+                                    },
+                                    {
+                                      "internalType": "bool",
+                                      "name": "started",
+                                      "type": "bool"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "borrowDur",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "borrowFee",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "collateral",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "endDate",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "remainingStake",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "remainingFee",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "stateMutability": "view",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "owner",
+                                  "outputs": [
+                                    {
+                                      "internalType": "address",
+                                      "name": "",
+                                      "type": "address"
+                                    }
+                                  ],
+                                  "stateMutability": "view",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "paused",
+                                  "outputs": [
+                                    {
+                                      "internalType": "bool",
+                                      "name": "",
+                                      "type": "bool"
+                                    }
+                                  ],
+                                  "stateMutability": "view",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_lendId",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "reclaimCollateral",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "renounceOwnership",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_lendId",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "sendFunds",
+                                  "outputs": [],
+                                  "stateMutability": "payable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_lendId",
+                                      "type": "uint256"
+                                    },
+                                    {
+                                      "internalType": "bool",
+                                      "name": "_state",
+                                      "type": "bool"
+                                    }
+                                  ],
+                                  "name": "setLendAgreementApproval",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "_lendId",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "name": "startLend",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "totalStaked",
+                                  "outputs": [
+                                    {
+                                      "internalType": "uint256",
+                                      "name": "",
+                                      "type": "uint256"
+                                    }
+                                  ],
+                                  "stateMutability": "view",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [
+                                    {
+                                      "internalType": "address",
+                                      "name": "newOwner",
+                                      "type": "address"
+                                    }
+                                  ],
+                                  "name": "transferOwnership",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "inputs": [],
+                                  "name": "withdraw",
+                                  "outputs": [],
+                                  "stateMutability": "nonpayable",
+                                  "type": "function"
+                                },
+                                {
+                                  "stateMutability": "payable",
+                                  "type": "receive"
+                                }
+                              ];

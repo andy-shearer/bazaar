@@ -12,7 +12,7 @@ export default function BookInfo({ book, user, onClickLend, wallet }) {
         <div className={styles.requestContainer}>
             <h3 className={styles.requestTitle}>{book.title}</h3>
             <p>Author: {book.author}</p>
-            <p>Duration: {book.duration}</p>
+            <p>Duration: {book.duration} {book.duration > 1 ? "days" : "day"}</p>
             <p suppressHydrationWarning={true}>Added on: {new Date(book.createdAt).toLocaleDateString()}</p>
             <p>{book.request ? "Borrower" : "Lender"} Address: {slicedAddress}</p>
 

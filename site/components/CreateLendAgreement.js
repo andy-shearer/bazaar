@@ -1,18 +1,81 @@
-import { useState } from 'react';
 import styles from "../styles/LendAgreement.module.css";
+import Web3Modal from "web3modal";
+import Link from 'next/link';
+import { Contract, providers, utils } from "ethers";
+import { useEffect, useState, useRef } from "react";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants";
 
-export default function CreateLendAgreement({ book, closePopup, wallet }) {
+export default function CreateLendAgreement({ book, closePopup }) {
   const bookId = book._id;
   const slicedBorrowerAddress = `${book.address.slice(0, 6)}...${book.address.slice(-4)}`;
-  const slicedWalletAddress = `${wallet.slice(0, 6)}...${wallet.slice(-4)} (You)`;
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [fee, setFee] = useState();
   const [loading, setLoading] = useState(false);
   const [collateral, setCollateral] = useState();
-  const buttonText = message ? "Cancel" : "Close";
+  const buttonText = message ? "Close" : "Cancel";
 
-  const handleSubmit = () => {
+  /*==================================================================
+   * Duplicated wallet connection bits, currently just duplicated from index.js
+   * TODO: move this into the Nav component
+   *=================================================================*/
+
+  const [ walletConnected, setWalletConnected ] = useState("");
+  const web3ModalRef = useRef();
+
+  useEffect(() => {
+    try {
+      const provider = new providers.Web3Provider(window.ethereum);
+      provider.listAccounts()
+        .then(addresses => addresses.length > 0 && connectWallet());
+    } catch(e) {
+      console.log("We couldn't detect a wallet provider - You may not be able to connect to the app");
+    }
+  }, []);
+
+  /*==================================================================
+   * Attempt to obtain the provider which will prompt wallet connection when used for the first time
+   *=================================================================*/
+  const connectWallet = async () => {
+    if(walletConnected === "") {
+      web3ModalRef.current = new Web3Modal({
+        network: "rinkeby",
+        providerOptions: {},
+        disableInjectedProvider: false
+      });
+    }
+
+    try {
+      const signer = await getProviderOrSigner(true);
+      const address = await signer.getAddress();
+      setWalletConnected(address);
+    } catch (err) {
+      /* Ignore the following errors:
+       *   -32002:  Already processing eth_requestAccounts
+       *   4001:    User rejected the request
+       */
+      if(![-32002, 4001].includes(err.code)) {
+        console.log(err);
+      }
+    }
+  }
+
+  const getProviderOrSigner = async (signer) => {
+    const instance = await web3ModalRef.current.connect();
+    const provider = new providers.Web3Provider(instance);
+
+    // If user is not connected to the Mumbai test network, let them know and throw an error
+    const { chainId } = await provider.getNetwork();
+    if (chainId !== 4) {
+      const msg = "Change the network to Ethereum Rinkeby (test network) and reload";
+      window.alert(msg);
+      throw new Error(msg);
+    }
+
+    return signer ? await provider.getSigner() : provider;
+  }
+
+  const handleSubmit = async () => {
     let errorMsg;
     if(!fee || fee <= 0) {
       errorMsg = "You are not going to receive any fee for lending this item.";
@@ -23,21 +86,66 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
     }
 
     if(!errorMsg || (errorMsg === error)) { // If we have no errors, or the user has ignored our error
-      const {res, e} = createLendAgreement();
+      // Clear an error if one is being displayed
+      setError();
+      const {res, e} = await createLendAgreement();
       setLoading(false);
       if(e) {
         errorMsg = e;
       }
-      setMessage(res);
+
+      if(res){
+        setMessage(res);
+      }
     }
     setError(errorMsg);
   }
 
-  const createLendAgreement = () => {
+  const createLendAgreement = async () => {
     setLoading(true);
-    // Lender,   Borrower,       Duration,        Fee,   Collateral
-    // wallet,   book.address,   book.duration,   fee,   collateral
-    return {e: "Not yet implemented"};
+
+    if(!walletConnected) {
+      const msg = "You must connect a crypto wallet in order to create a lend agreement. https://metamask.io/faqs/";
+      console.log(msg);
+      return {e: msg};
+    }
+
+    let created = true;
+    try {
+      const signer = await getProviderOrSigner(true);
+      const lendsContract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+      const borrowDuration = book.duration * 24;
+      const borrowFee = fee ? utils.parseEther(fee) : 0;
+      const borrowCollateral = collateral ? utils.parseEther(collateral) : 0;
+      let tx = await lendsContract.createLendAgreement(walletConnected, book.address, borrowDuration, borrowFee, borrowCollateral);
+      await tx.wait();
+    } catch (err) {
+        created = false;
+        let msg;
+        if(err.code === 4001) {
+          msg = "User rejected the transaction";
+          console.log(msg);
+          return {e:msg};
+        }
+        /**
+         * Allowed errors:
+         *    -32002 "Already processing eth_requestAccounts. Please wait"
+         */
+        else if(err.code != -32002) {
+          console.error(err);
+          return {e:err};
+        }
+    }
+
+    return {res: "Lend Agreement successfully created!"};
+  }
+
+  const closeCreateAgreement = () => {
+    if(loading && !error) {
+      setError("Warning: Your transaction may be in progress! Click 'Cancel' if you still want to close.");
+    } else {
+      closePopup();
+    }
   }
 
   return (
@@ -92,7 +200,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
             <tr className={styles.tableRow}>
               <td>Lender Address:</td>
               <td>
-                {slicedWalletAddress}
+                {walletConnected ? `${walletConnected.slice(0, 6)}...${walletConnected.slice(-4)} (You)` : "Need to connect wallet"}
               </td>
             </tr>
 
@@ -109,6 +217,12 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
                   placeholder="Fee you will receive"
                 />
                 <span> ETH</span>
+              {
+                fee &&
+                <a target="_blank" href={`https://www.xe.com/currencyconverter/convert/?Amount=${fee}&From=ETH&To=GBP`} rel="noopener noreferrer">
+                  <span title="How much is this in FIAT?" className={styles.convertButton}>🔁</span>
+                </a>
+              }
               </td>
             </tr>
 
@@ -123,6 +237,12 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
                   placeholder="Amount borrower must stake"
                 />
                 <span> ETH</span>
+              {
+                collateral &&
+                <a target="_blank" href={`https://www.xe.com/currencyconverter/convert/?Amount=${collateral}&From=ETH&To=GBP`} rel="noopener noreferrer">
+                  <span title="How much is this in FIAT?" className={styles.convertButton}>🔁</span>
+                </a>
+              }
               </td>
             </tr>
           </tbody>
@@ -154,7 +274,7 @@ export default function CreateLendAgreement({ book, closePopup, wallet }) {
           { !message && !loading &&
               <button onClick={handleSubmit} className={styles.button}>Create</button>
           }
-          <button className={styles.button} onClick={closePopup}>{buttonText}</button>
+          <button className={styles.button} onClick={closeCreateAgreement}>{buttonText}</button>
         </div>
       </div>
     </section>
