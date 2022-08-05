@@ -184,7 +184,7 @@ export default function CreateLendAgreement({ book, closePopup }) {
             <tr className={styles.tableRow}>
               <td>Borrow Duration:</td>
               <td>
-                {book.duration}
+                {book.duration} {book.duration > 1 ? "days" : "day"}
               </td>
             </tr>
 
